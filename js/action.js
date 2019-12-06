@@ -11,6 +11,11 @@ $(document).ready(function() {
         this.vote = a;
         this.price = "";
         this.genre = [];
+        this.addtocart = function()  {
+            console.log("hej");
+            let a = localStorage.getItem("hej");
+            localStorage.setItem("hej", a + this.title);
+        }
     }
     
     for ( let i = 0; i < actionlist.length; i++){
@@ -36,11 +41,13 @@ $(document).ready(function() {
             else {
                 product.price = 129;
             }
-
+            
             let imgcontainer = $('<div>');
             imgcontainer.attr("class", "imgcontainer")
-                        .appendTo($('#product-container'));
-
+                        .appendTo($('#product-container'))
+                        .on("click", function() {
+                            product.addtocart();
+                        });
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
                     .appendTo(imgcontainer);
@@ -60,8 +67,5 @@ $(document).ready(function() {
             $("#side-filter-overlay").css("width", "80");
             o = 0;
         }
-
     });
-
-
-});
+}); 

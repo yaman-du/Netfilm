@@ -1,10 +1,52 @@
+header {
+    width:100%;
+    background-color:rgb(218, 30, 30);
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    ul {
+        width:100%;
+        color:white;
+        list-style-type: none;
+        padding:0;
+        margin:0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        li {
+            img {
+                width:80px;
+                padding:10px;
+                box-sizing: border-box;
+            }
+        }
+    } div {
+        position: fixed;
+        right:5%; top:3%;
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 50%;
+        width:70px;
+        height: 70px;
+        text-align: center;
+        box-shadow: 0 0 20px 3px black;
+        cursor: pointer;
+        .fa-shopping-basket {
+            color:rgba(111, 11, 11, 1);
+            font-size: 1.7em; 
+            line-height: 70px; 
+        }
+    }
+}
+
 #container {
     display: flex;
+    background-image: linear-gradient(rgb(24, 24, 24), rgb(46, 46, 46));
     #side-filter-overlay {
         width:80px;
         overflow: hidden;
-        border-right: 2px solid rgb(0, 0, 0);
-        background-image: linear-gradient(rgb(88, 0, 0), rgb(47, 10, 10)); 
+        border-right: 2px solid rgb(218, 30, 30);
+        background-image: linear-gradient(rgb(46, 46, 46),rgb(24, 24, 24) ); 
         transition: all 0.7s;
         #side-filter {
             width:30vw; 
@@ -14,12 +56,13 @@
             font-size: 1.5em;
             justify-content: flex-start;
             i {
-             
+                 
+    
+                top:10px;
                 text-align: center;
                 width:80px;
                 height:80px;
                 line-height: 80px;
-          
                 cursor: pointer;
             }
             i:hover {
@@ -27,17 +70,19 @@
             }
             #filter-options {
                 padding-left:20px;
+            
+                left:90px;
             }
         }
     }
     #product-container {
-        width:100%;
+        width:95%;
         display: flex;
         justify-content: space-evenly;
         flex-wrap: wrap;
-        background-image: linear-gradient(rgb(24, 24, 24), rgb(46, 46, 46));
+       
         box-sizing: border-box;
-        padding:0 10%;
+        padding:2% 10%;
         .imgcontainer {
             width:26%;
             object-fit: cover;
