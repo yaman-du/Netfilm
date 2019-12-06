@@ -1,0 +1,30 @@
+#main-poster-container {
+    width:100%;
+    overflow: hidden;
+    height: 700px;
+    #main-poster {
+        width:100%;
+        
+        display: block;
+    }   
+    h1 {
+        position: absolute;
+        color:white;
+        top:250px;
+        left:50%;
+        transform:translate(-50%,-50%);
+    } 
+    span {
+        position: absolute;
+        font-size: 2.5em;
+        color: rgb(255, 255, 255);
+        top:350px;
+        left:50%;
+        transform: translate(-50%, -50%);
+   
+        background-color:rgba(111, 11, 11, 1);
+        padding: 20px 50px;
+        border-radius: 5px;
+        
+    }
+}    
