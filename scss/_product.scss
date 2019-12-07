@@ -21,7 +21,8 @@ header {
                 box-sizing: border-box;
             }
         }
-    } div {
+    } 
+    #cart-icon {
         position: fixed;
         right:5%; top:3%;
         background-color: rgba(255, 255, 255, 1);
@@ -35,6 +36,13 @@ header {
             color:rgba(111, 11, 11, 1);
             font-size: 1.7em; 
             line-height: 70px; 
+        }
+        #cart-container {
+            .cart-content {
+                img {
+                    height:100px;
+                }
+            } 
         }
     }
 }

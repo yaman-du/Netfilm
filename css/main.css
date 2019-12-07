@@ -92,7 +92,7 @@ header {
       width: 80px;
       padding: 10px;
       box-sizing: border-box; }
-  header div {
+  header #cart-icon {
     position: fixed;
     right: 5%;
     top: 3%;
@@ -103,10 +103,12 @@ header {
     text-align: center;
     box-shadow: 0 0 20px 3px black;
     cursor: pointer; }
-    header div .fa-shopping-basket {
+    header #cart-icon .fa-shopping-basket {
       color: #6f0b0b;
       font-size: 1.7em;
       line-height: 70px; }
+    header #cart-icon #cart-container .cart-content img {
+      height: 100px; }
 
 #container {
   display: flex;

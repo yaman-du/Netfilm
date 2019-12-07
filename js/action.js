@@ -9,13 +9,9 @@ $(document).ready(function() {
         this.trailerurl = v;
         this.description = d;
         this.vote = a;
-        this.price = "";
+        this.price = 0;
         this.genre = [];
-        this.addtocart = function()  {
-            console.log("hej");
-            let a = localStorage.getItem("hej");
-            localStorage.setItem("hej", a + this.title);
-        }
+        this.amount = 1;
     }
     
     for ( let i = 0; i < actionlist.length; i++){
@@ -46,7 +42,7 @@ $(document).ready(function() {
             imgcontainer.attr("class", "imgcontainer")
                         .appendTo($('#product-container'))
                         .on("click", function() {
-                            product.addtocart();
+                            addtocart( product );
                         });
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
@@ -68,4 +64,32 @@ $(document).ready(function() {
             o = 0;
         }
     });
+
+    $('#cart-icon').on("click", function() {
+        for (let i = 0; i < localStorage.length; i++) {
+            
+            let productobject = localStorage.getItem(localStorage.key(i));
+            let div = $('<div>');
+            let img = $('<img>');   
+            let para = $('<p>');
+            div.addClass('cart-content')
+                .appendTo($('#cart-container'));
+            img.attr("src","http://image.tmdb.org/t/p/w500/" + JSON.parse(productobject).imgurl )
+                .appendTo(div);
+            // $('.cart-container')
+        }
+    });
+
 }); 
+
+function addtocart(a) {
+    if ( localStorage.getItem(a.title) != undefined ) {
+        let p = localStorage.getItem(a.title);
+        p = JSON.parse(p);
+        p.amount++;
+        localStorage.setItem(a.title,JSON.stringify(p));
+    }
+    else {
+        localStorage.setItem(a.title, JSON.stringify(a));
+    }    
+}
