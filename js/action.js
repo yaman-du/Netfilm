@@ -37,13 +37,18 @@ $(document).ready(function() {
             else {
                 product.price = 129;
             }
-            
+            //aktivering utav modal        
             let imgcontainer = $('<div>');
             imgcontainer.attr("class", "imgcontainer")
                         .appendTo($('#product-container'))
-                        .on("click", function() {
-                            
-                        });
+                        .click(function(){
+                            $("#modal").css("display","block");
+                            $("#modal").click(function(e){
+                                if (e.target == this) {
+                                    $("#modal").css("display", "none");
+                                }
+                            })
+                        });            
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
                     .appendTo(imgcontainer);
