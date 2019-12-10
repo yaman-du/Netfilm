@@ -59,6 +59,7 @@ $(document).ready(function() {
                         $("#modal").click(function(e){
                             if (e.target == this) {
                                 $("#modal").css("display", "none");
+                                $("#iframe-trailer").attr("src", " ");
                             }
                         })
                     });
