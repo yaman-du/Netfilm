@@ -5,7 +5,7 @@ $(document).ready(function() {
     //  url:"https://api.themoviedb.org/3/search/movie?api_key=990c8bcf3ed6fe9927c44ba174b1574d&query=28"
         url:"https://api.themoviedb.org/3/movie/tt0499549/videos?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US"
     });
-    
+        
     
 
     $(window).scroll( function() {

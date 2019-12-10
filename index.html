@@ -15,19 +15,30 @@
             <ul id="navbar">
                 <li><i class="fas fa-tv"></i></li>
                 <li id="category-toggle">Kategorier <i class="fas fa-caret-right category"></i></li>   
-                <li class="category">Action</li>
-                <li class="category">Thriller</li>
-                <li class="category">Drama</li>
-                <li class="category">Skräck</li>
-                <li class="category">Romantik</li>
-                <li class="category">Komedi</li>
+                <li class="category"><a href="product/action.html">Action</a></li>
+                <li class="category"><a href="product/action.html">Skräck</a></li>
+                <li class="category"><a href="product/action.html">Drama</a></li>
+                <li class="category"><a href="product/action.html">Thriller</a></li>
+                <li class="category"><a href="product/action.html">Komedi</a></li>
+                <li class="category"><a href="product/action.html">Romantik</a></li>
             </ul>
-            <div><i class="fas fa-shopping-basket"></i></div>
+            <div id="cart-icon">
+                <div id="cart-count">0</div>
+                <i class="fas fa-shopping-basket"></i>
+                <div id="cart-container">
+                 <div id="cart-header"><i class="far fa-arrow-alt-circle-right"></i><span>Din varukorg</span></div>
+
+                 <div id="total-price"></div>
+                 <div id="cart-options">
+                     <div id="remove-all"><i class="fas fa-trash-alt"></i></div>
+                     <div id="checkout-button">Till kassan</div>
+                 </div> 
+                </div>
+            </div>
             
         </header>
         <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/5PSNL1qE6VY?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
          -->
-        
         <div class="empty-space"></div>
         <div id="main-header-img">
             <span id="main-text">Välkommen till Netfilm</span>
@@ -49,8 +60,40 @@
             <div class="category-div"><a href="file:///D:/Jonathan/Desktop/grupparbete-master/product/action.html" ><span>Komedi</span><img src="images/komedi.jpg"/></a></div>
             <div class="category-div"><a href="file:///D:/Jonathan/Desktop/grupparbete-master/product/action.html" ><span>Romantik</span><img src="images/romantik.jpg"/></a></div>
         </div>
-        <div id="test-footer">
-
+        <div id="footer-container">
+            <div class="footer-content">
+                <ul>
+                    <li><h2>Kontakt information</h2></li>
+                    <li><h3>Adress:</h3> <span> Tulegatan 41, 113 53 Stockholm</span> </li>
+                    <li><h3>Telefon:</h3><span> +46 2422 10 44</span></li>
+                    <li><h3>Email:</h3><span> netfilm@no-reply.com</span></li>
+                </ul>
+            </div>
+            <div class="footer-content">
+                <h2>Navigering</h2>
+                <div id="columns">
+                    <ul id="footer-nav">
+                        <li><a href="/product/action.html">Action</a> </li>
+                        <li><a href="/product/action.html">Skräck</a> </li>
+                        <li><a href="/product/action.html">Drama</a> </li>
+                    </ul>
+                    <ul>
+                        <li><a href="/product/action.html">Thriller</a> </li>
+                        <li><a href="/product/action.html">Komedi</a> </li>
+                        <li><a href="/product/action.html">Romantik</a> </li>
+                        <li><a href="/product/action.html">Till Toppen</a> </li>
+                    </ul>            
+                </div>
+            </div>
+            <div class="footer-content">
+                <ul>
+                    <li><h2>Sociala medier</h2></li>
+                    <li><h3>Adress:</h3> <span> Tulegatan 41, 113 53 Stockholm</span> </li>
+                    <li><h3>Telefon:</h3><span> +46 2422 10 44</span></li>
+                    <li><h3>Email:</h3><span> netfilm@no-reply.com</span></li>
+                </ul>
+            </div>
+            <div id="footer-footer"><span>&copy; 2019 Netfilm.se, alla rättigheter förbehållna</span></div>
         </div>
     </body>
 </html> 
