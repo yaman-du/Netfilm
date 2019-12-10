@@ -333,6 +333,53 @@
         #second-header #cart-icon #cart-container #cart-options #checkout-button:hover {
           background-color: #14c814; }
 
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 115;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.2); }
+  #modal #modal-container {
+    background-color: whitesmoke;
+    margin: 3% auto;
+    width: 75%;
+    box-shadow: 0 0 20px 11px rgba(0, 0, 0, 0.9); }
+    #modal #modal-container #modal-trailer {
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      position: relative;
+      height: 0; }
+      #modal #modal-container #modal-trailer iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute; }
+    #modal #modal-container #modal-body {
+      background-color: #fff; }
+      #modal #modal-container #modal-body p {
+        margin-bottom: 0; }
+    #modal #modal-container #modal-footer {
+      background-color: white;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%; }
+      #modal #modal-container #modal-footer span {
+        width: 20%;
+        background-color: greenyellow;
+        text-align: center; }
+      #modal #modal-container #modal-footer .buybtn {
+        background-color: green;
+        display: inline;
+        width: 20%;
+        text-align: center; }
+      #modal #modal-container #modal-footer .buybtn:hover {
+        cursor: pointer; }
+
 body {
   margin: 0;
   font-size: 20pt;

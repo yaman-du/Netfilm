@@ -1,7 +1,8 @@
 $(document).ready(function() {
-    
+    //Id för vår film(genre)
     let actionlist = ["tt0110413", "tt0060196", "tt0468569", "tt5463162", "tt1074638", "tt0090605", "tt0172495"];
     
+    //Skapar klass för våra filmer
     let Product = function(t,u,y,v,d,a) {
         this.title = t;
         this.imgurl = u;
@@ -13,14 +14,14 @@ $(document).ready(function() {
         this.genre = [];
         this.amount = 1;
     }
-    
+    //Ajax hämtning utav vår api
     for ( let i = 0; i < actionlist.length; i++){
         let a = $.ajax("https://api.themoviedb.org/3/find/"+actionlist[i] +"?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US&external_source=imdb_id", {
             method:'GET',
             async: true,
         });
 
-
+    //när funktion klar - Jämför rating och ge ut ett pris
         a.done(function(data) {
             console.log(data.movie_results[0]);
             
@@ -37,22 +38,33 @@ $(document).ready(function() {
             else {
                 product.price = 129;
             }
+
             
+    //aktivering utav modal        
             let imgcontainer = $('<div>');
             imgcontainer.attr("class", "imgcontainer")
                         .appendTo($('#product-container'))
-                        .on("click", function() {
-                            addtocart( product );
-                            updatecart();
-                        });
+                        .click(function(){
+                            $("#modal").css("display","block");
+                            $("#modal").click(function(e){
+                                
+                                if (e.target == this) {
+                                    $("#modal").css("display", "none");
+                                }
+                                
+                            })
+                        })
+    //hämtar in bilder i rätt storlek
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
                     .appendTo(imgcontainer);
+    //Hämtar in titel och pris
             let para = $('<p>');
             para.html(product.title + " " + product.price + " kr")
                 .appendTo(imgcontainer);
         });
     }
+    //Side bar 
     let o = 0;
     $(".fa-sliders-h").on("click", function() {
       
@@ -65,7 +77,7 @@ $(document).ready(function() {
             o = 0;
         }
     });
-
+    //Öppna och stäng varukorg
     $('#cart-icon').click( function(event) {
     
         if( event.target == this || event.target == this.children[1] ) {
@@ -83,7 +95,7 @@ $(document).ready(function() {
            
         }
     });
-
+    //rensa varukorg
     $("#remove-all").on("click", function() {
         $('.cart-content').remove();
         localStorage.clear();
@@ -103,7 +115,7 @@ function updatecart() {
     $('.cart-content').remove();
     let cartcount = 0;
     let totalprice = 0;
-
+//Hämtar information från localstorage om vad som finns i 
     for (let i = 0; i < localStorage.length; i++) {  
         let productobject = localStorage.getItem(localStorage.key(i));
         productobject = JSON.parse(productobject);
@@ -177,7 +189,7 @@ function updatecart() {
 
     $('#total-price').html("Totalpris: " + totalprice + " kr");     
 }
-
+    //spara till local storage
 function addtocart(a) {
     if ( localStorage.getItem(a.title) != undefined ) {
         let p = localStorage.getItem(a.title);

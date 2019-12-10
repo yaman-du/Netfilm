@@ -1,12 +1,58 @@
 #modal {
-    // display: none;
+    display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 115;
     left: 0;
     top: 0;
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.2)
-
+    background-color: rgba(0,0,0,0.2);
+    #modal-container{
+        background-color: whitesmoke;;
+        margin: 3% auto;
+        width: 75%;
+        box-shadow: 0 0 20px 11px rgba(0, 0, 0, 0.9);
+        #modal-trailer {
+            overflow:hidden;
+            padding-bottom:56.25%;
+            position:relative;
+            height:0;
+            iframe{
+                left:0;
+                top:0;
+                height:100%;
+                width:100%;
+                position:absolute;
+        }
+        }
+        #modal-body{
+        background-color: #fff;
+            p{
+                margin-bottom: 0;
+            }
+        }
+        #modal-footer{
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+            span{
+                width: 20%;
+                background-color: greenyellow;
+                text-align: center;
+            }
+            .buybtn{
+                background-color: green;
+                display: inline;
+                width: 20%;
+                text-align: center;
+            }
+            .buybtn:hover{
+                cursor: pointer;
+            }
+        }
+    }
 }
+
+
