@@ -1,8 +1,7 @@
 $(document).ready(function() {
-    //Id för vår film(genre)
-    let actionlist = ["tt0110413", "tt0060196", "tt0468569", "tt5463162", "tt1074638", "tt0090605", "tt0172495"];
     
-    //Skapar klass för våra filmer
+    let actionlist = ["tt0110413", "tt0060196", "tt0468569", "tt5463162", "tt1074638", "tt0090605", "tt0172495", "tt7975244"];
+    
     let Product = function(t,u,y,v,d,a) {
         this.title = t;
         this.imgurl = u;
@@ -14,14 +13,14 @@ $(document).ready(function() {
         this.genre = [];
         this.amount = 1;
     }
-    //Ajax hämtning utav vår api
+    
     for ( let i = 0; i < actionlist.length; i++){
         let a = $.ajax("https://api.themoviedb.org/3/find/"+actionlist[i] +"?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US&external_source=imdb_id", {
             method:'GET',
             async: true,
         });
 
-    //när funktion klar - Jämför rating och ge ut ett pris
+
         a.done(function(data) {
             console.log(data.movie_results[0]);
             
@@ -38,33 +37,31 @@ $(document).ready(function() {
             else {
                 product.price = 129;
             }
-
             
-    //aktivering utav modal        
             let imgcontainer = $('<div>');
             imgcontainer.attr("class", "imgcontainer")
                         .appendTo($('#product-container'))
-                        .click(function(){
-                            $("#modal").css("display","block");
-                            $("#modal").click(function(e){
-                                
-                                if (e.target == this) {
-                                    $("#modal").css("display", "none");
-                                }
-                                
-                            })
-                        })
-    //hämtar in bilder i rätt storlek
+                        .on("click", function() {
+                            
+                        });
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
                     .appendTo(imgcontainer);
-    //Hämtar in titel och pris
-            let para = $('<p>');
-            para.html(product.title + " " + product.price + " kr")
+            let titletext = $('<span>');
+            titletext.html(product.title)
                 .appendTo(imgcontainer);
+
+            let buybutton = $('<div>');
+            buybutton.html("Köp " + " " + " " + product.price + " kr")
+                    .appendTo(imgcontainer)
+                    .addClass("addtocart")
+                    .click(function() {
+                        addtocart( product );
+                        updatecart();
+                    });
+
         });
     }
-    //Side bar 
     let o = 0;
     $(".fa-sliders-h").on("click", function() {
       
@@ -77,14 +74,14 @@ $(document).ready(function() {
             o = 0;
         }
     });
-    //Öppna och stäng varukorg
+
     $('#cart-icon').click( function(event) {
     
         if( event.target == this || event.target == this.children[1] ) {
             console.log($("#cart-container").css("right") + " " +
             window.innerWidth);
             if($("#cart-container").css("right") == "-1000px") {
-                $("#cart-container").css("right", "0");
+                $("#cart-container").css("right", "-50px");
             }
             else {
                 $('#cart-container').css("right", "-1000px");
@@ -95,7 +92,16 @@ $(document).ready(function() {
            
         }
     });
-    //rensa varukorg
+
+    $('.fa-arrow-alt-circle-right').click(function() {
+        if($("#cart-container").css("right") == "-1000px") {
+            $("#cart-container").css("right", "-50px");
+        }
+        else {
+            $('#cart-container').css("right", "-1000px");
+        } 
+    });
+
     $("#remove-all").on("click", function() {
         $('.cart-content').remove();
         localStorage.clear();
@@ -106,7 +112,11 @@ $(document).ready(function() {
     });
 
     updatecart();
-
+    $("#lowtohigh").click(function() {
+        for ( let i = 0; i < $('#product-container')[0].childNodes.length-1; i++) {
+            
+        }
+    });
 }); 
 
 
@@ -115,7 +125,7 @@ function updatecart() {
     $('.cart-content').remove();
     let cartcount = 0;
     let totalprice = 0;
-//Hämtar information från localstorage om vad som finns i 
+
     for (let i = 0; i < localStorage.length; i++) {  
         let productobject = localStorage.getItem(localStorage.key(i));
         productobject = JSON.parse(productobject);
@@ -189,7 +199,7 @@ function updatecart() {
 
     $('#total-price').html("Totalpris: " + totalprice + " kr");     
 }
-    //spara till local storage
+
 function addtocart(a) {
     if ( localStorage.getItem(a.title) != undefined ) {
         let p = localStorage.getItem(a.title);
