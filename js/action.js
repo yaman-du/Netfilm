@@ -40,18 +40,18 @@ $(document).ready(function() {
             //aktivering utav modal        
             let imgcontainer = $('<div>');
             imgcontainer.attr("class", "imgcontainer")
-                        .appendTo($('#product-container'))
-                        .click(function(){
-                            $("#modal").css("display","block");
-                            $("#modal").click(function(e){
-                                if (e.target == this) {
-                                    $("#modal").css("display", "none");
-                                }
-                            })
-                        });            
+                        .appendTo($('#product-container'));           
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
-                    .appendTo(imgcontainer);
+                    .appendTo(imgcontainer)
+                    .click(function(){
+                        $("#modal").css("display","block");
+                        $("#modal").click(function(e){
+                            if (e.target == this) {
+                                $("#modal").css("display", "none");
+                            }
+                        })
+                    }); 
             let titletext = $('<span>');
             titletext.html(product.title)
                 .appendTo(imgcontainer);
