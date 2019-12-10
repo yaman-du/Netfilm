@@ -48,6 +48,12 @@ $(document).ready(function() {
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
                     .appendTo(imgcontainer)
                     .click(function() {  
+                        $("#iframe-trailer").attr("src", "https://www.youtube.com/embed/" + product.trailerurl + "?controls=0?&autoplay=1");
+                        $("#modal-title").html(product.title);
+                        $("#modal-year").html(product.year);
+                        $("#modal-overview").html(product.description);
+                        $("#modal-price").html(product.price + " kr");
+                        
                         $("#modal").css("display","block");
                         console.log(productlist[i].trailerurl + " " + productlist[i].title);
                         $("#modal").click(function(e){
