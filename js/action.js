@@ -14,20 +14,23 @@ $(document).ready(function() {
         this.amount = 1;
     }
     
+    let productlist = [];
+
     for ( let i = 0; i < actionlist.length; i++){
-        let a = $.ajax("https://api.themoviedb.org/3/find/"+actionlist[i] +"?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US&external_source=imdb_id", {
+        let a = $.ajax("https://api.themoviedb.org/3/find/" + actionlist[i] + "?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US&external_source=imdb_id", {
             method:'GET',
             async: true,
         });
 
 
         a.done(function(data) {
-            console.log(data.movie_results[0]);
             
             let movieresult = data.movie_results[0];
 
             let product = new Product(movieresult.title, movieresult.poster_path, movieresult.release_date, "", movieresult.overview, movieresult.vote_average);
-              
+            
+            productlist.push(product);
+            
             if ( product.vote < 7.2) {
                 product.price = 79;
             }
@@ -44,14 +47,15 @@ $(document).ready(function() {
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
                     .appendTo(imgcontainer)
-                    .click(function(){
+                    .click(function() {  
                         $("#modal").css("display","block");
+                        console.log(productlist[i].trailerurl + " " + productlist[i].title);
                         $("#modal").click(function(e){
                             if (e.target == this) {
                                 $("#modal").css("display", "none");
                             }
                         })
-                    }); 
+                    });
             let titletext = $('<span>');
             titletext.html(product.title)
                 .appendTo(imgcontainer);
@@ -64,9 +68,17 @@ $(document).ready(function() {
                         addtocart( product );
                         updatecart();
                     });
-
+            
+            if (i == actionlist.length-1 ) {
+            
+                videoapi( productlist );
+            
+            }
         });
+
     }
+
+    
     let o = 0;
     $(".fa-sliders-h").on("click", function() {
       
@@ -182,6 +194,8 @@ function updatecart() {
                 updatecart();
             });
 
+
+
         para3.html(productobject.amount)
             .appendTo(div2);
 
@@ -215,5 +229,22 @@ function addtocart(a) {
     else {
         localStorage.setItem(a.title, JSON.stringify(a));
     } 
+}
+
+function videoapi( datalist ) {
+
+    let actionlist = ["tt0110413", "tt0060196", "tt0468569", "tt5463162", "tt1074638", "tt0090605", "tt0172495", "tt7975244"];
+
+    for ( let i = 0; i < datalist.length; i++){
+        let b = $.ajax("https://api.themoviedb.org/3/movie/"+actionlist[i] +"/videos?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US", {
+            method:'GET',
+            async: true,
+        });
+        b.done(function( data ){
+            datalist[i].trailerurl = data.results[0].key;
+
+        })
+ 
+    }
 
 }
