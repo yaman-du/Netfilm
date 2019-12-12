@@ -40,28 +40,18 @@ $(document).ready(function() {
             else {
                 product.price = 129;
             }
-            //aktivering utav modal        
+            //bygger modal       
             let imgcontainer = $('<div>');
             imgcontainer.attr("class", "imgcontainer")
                         .appendTo($('#product-container'));           
             let myImage = $('<img/>');
             myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
                     .appendTo(imgcontainer)
-                    .click(function() {  
-                        $("#iframe-trailer").attr("src", "https://www.youtube.com/embed/" + product.trailerurl + "?controls=0?&autoplay=1");
-                        $("#modal-title").html(product.title);
-                        $("#modal-year").html(product.year);
-                        $("#modal-overview").html(product.description);
-                        $("#modal-price").html(product.price + " kr");
-                        
-                        $("#modal").css("display","block");
-                        console.log(productlist[i].trailerurl + " " + productlist[i].title);
-                        $("#modal").click(function(e){
-                            if (e.target == this) {
-                                $("#modal").css("display", "none");
-                            }
-                        })
+                    .click( function() {
+                        console.log("Sending to modal: ", product)
+                        openModal(product);
                     });
+                    
             let titletext = $('<span>');
             titletext.html(product.title)
                 .appendTo(imgcontainer);
@@ -71,6 +61,7 @@ $(document).ready(function() {
                     .appendTo(imgcontainer)
                     .addClass("addtocart")
                     .click(function() {
+                        
                         addtocart( product );
                         updatecart();
                     });
@@ -252,5 +243,33 @@ function videoapi( datalist ) {
         })
  
     }
+
+}
+
+function openModal( product ) {
+    
+    $("#iframe-trailer").attr("src", "https://www.youtube.com/embed/" + product.trailerurl + "?controls=0?&autoplay=1");
+    $("#modal-title").html(product.title);
+    $("#modal-year").html("(" + product.year.slice(0,4) + ")");
+    $("#modal-overview").html(product.description);
+    
+    //aktivering av modal
+    $("#modal").css("display","block");
+    
+    $("#modal").click(function(e){
+        if (e.target == this) {
+            $("#modal").css("display", "none");
+            $("#iframe-trailer").attr("src", "");
+        }
+    });
+
+    $(".buybtn").off("click");
+    $(".buybtn").html("Köp " + product.price + " kr")
+                .click(function() {
+                    console.log(product);
+                    console.log("hej");
+                    addtocart( product );
+                    updatecart();
+            });
 
 }
