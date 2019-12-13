@@ -19,7 +19,7 @@ $(document).ready(function() {
     for ( let i = 0; i < actionlist.length; i++){
         let a = $.ajax("https://api.themoviedb.org/3/find/" + actionlist[i] + "?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US&external_source=imdb_id", {
             method:'GET',
-            async: true,
+            async: false,
         });
 
 
@@ -41,35 +41,31 @@ $(document).ready(function() {
                 product.price = 129;
             }
             //aktivering utav modal        
-            let imgcontainer = $('<div>');
+            let productcontent = $('<div>');
+            productcontent.attr("class", "productcontent")
+                        .appendTo($('#product-container'));          
+            
+
+    
+
+            //bygger modal       
+            let imgcontainer=$('<div>');
             imgcontainer.attr("class", "imgcontainer")
-                        .appendTo($('#product-container'));           
-            let myImage = $('<img/>');
-            myImage.attr("src", "http://image.tmdb.org/t/p/w500/" + product.imgurl)
-                    .appendTo(imgcontainer)
-                    .click(function() {  
-                        $("#iframe-trailer").attr("src", "https://www.youtube.com/embed/" + product.trailerurl + "?controls=0?&autoplay=1");
-                        $("#modal-title").html(product.title);
-                        $("#modal-year").html(product.year);
-                        $("#modal-overview").html(product.description);
-                        $("#modal-price").html(product.price + " kr");
+                        .appendTo($(productcontent));           
+            let myImage=$('<img/>');
+            myImage.attr("src", "http://image.tmdb.org/t/p/w500/"+product.imgurl)
+                        .appendTo(imgcontainer)
+                        .click( function() {
+                            openModal(product);
+                        });
                         
-                        $("#modal").css("display","block");
-                        console.log(productlist[i].trailerurl + " " + productlist[i].title);
-                        $("#modal").click(function(e){
-                            if (e.target == this) {
-                                $("#modal").css("display", "none");
-                                $("#iframe-trailer").attr("src", " ");
-                            }
-                        })
-                    });
             let titletext = $('<span>');
             titletext.html(product.title)
-                .appendTo(imgcontainer);
+                .appendTo(productcontent);
 
             let buybutton = $('<div>');
             buybutton.html("Köp " + " " + " " + product.price + " kr")
-                    .appendTo(imgcontainer)
+                    .appendTo(productcontent)
                     .addClass("addtocart")
                     .click(function() {
                         addtocart( product );
@@ -90,11 +86,11 @@ $(document).ready(function() {
     $(".fa-sliders-h").on("click", function() {
       
         if (o == 0) {
-            $("#side-filter-overlay").css("width", "600");
+            $("#side-filter-overlay").css("flex-basis", "600px");
             o = 1;
         }
         else {
-            $("#side-filter-overlay").css("width", "80");
+            $("#side-filter-overlay").css("flex-basis", "80px");
             o = 0;
         }
     });
@@ -123,6 +119,16 @@ $(document).ready(function() {
         }
         else {
             $('#cart-container').css("right", "-1000px");
+        } 
+    });
+    
+    $(document).mouseup(function (e) { 
+        if ($(e.target).closest("#cart-container").length 
+                    === 0) { 
+            $("#cart-container").css("right", "-1000px"); 
+        }
+        else {
+            $("#cart-container").css("right", "-50px");
         } 
     });
 
@@ -201,8 +207,6 @@ function updatecart() {
                 updatecart();
             });
 
-
-
         para3.html(productobject.amount)
             .appendTo(div2);
 
@@ -213,8 +217,7 @@ function updatecart() {
                 console.log(productobject.amount);
                 localStorage.setItem(productobject.title, JSON.stringify(productobject));
                 updatecart();
-            });
-        
+            });        
 
         cartcount += productobject.amount;
         totalprice += productobject.price*productobject.amount;
@@ -227,6 +230,15 @@ function updatecart() {
 }
 
 function addtocart(a) {
+
+    $('#success-text').html(a.title + " har lagts till i varukorgen");
+    $('#success-container').css("top", -30 + "px");
+    
+    setTimeout(function() {
+        $('#success-container').css("top", -200 + "px");
+    }, 2500);
+
+
     if ( localStorage.getItem(a.title) != undefined ) {
         let p = localStorage.getItem(a.title);
         p = JSON.parse(p);
@@ -236,6 +248,7 @@ function addtocart(a) {
     else {
         localStorage.setItem(a.title, JSON.stringify(a));
     } 
+
 }
 
 function videoapi( datalist ) {
@@ -245,7 +258,7 @@ function videoapi( datalist ) {
     for ( let i = 0; i < datalist.length; i++){
         let b = $.ajax("https://api.themoviedb.org/3/movie/"+actionlist[i] +"/videos?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US", {
             method:'GET',
-            async: true,
+            async: false,
         });
         b.done(function( data ){
             datalist[i].trailerurl = data.results[0].key;
@@ -254,4 +267,31 @@ function videoapi( datalist ) {
  
     }
 
+}
+
+function openModal( product ) {
+    
+    $("#iframe-trailer").attr("src", "https://www.youtube.com/embed/" + product.trailerurl + "?controls=0?&autoplay=1");
+    $("#modal-title").html(product.title);
+    $("#modal-year").html("(" + product.year.slice(0,4) + ")");
+    $("#modal-overview").html(product.description);
+    
+    //aktivering av modal
+    $("#modal").css("display","block");
+    
+    $("#modal").click(function(e){
+        if (e.target == this) {
+            $("#modal").css("display", "none");
+            $("#iframe-trailer").attr("src", "");
+        }
+    });
+ 
+    $(".buybtn").off("click");
+    $(".buybtn").html("Köp " + product.price + " kr")
+                .click(function() {
+                    console.log(product);
+                    console.log("hej");
+                    addtocart( product );
+                    updatecart();
+                });
 }

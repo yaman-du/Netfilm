@@ -1,18 +1,27 @@
 $(document).ready(function() {
-    let h = $.ajax({
-    //  url:"https://api.themoviedb.org/3/find/tt0499549?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US&external_source=imdb_id",
-    //  url:"https://api.themoviedb.org/3/genre/movie/list?language=en-US&api_key=990c8bcf3ed6fe9927c44ba174b1574d",
-    //  url:"https://api.themoviedb.org/3/search/movie?api_key=990c8bcf3ed6fe9927c44ba174b1574d&query=28"
-        url:"https://api.themoviedb.org/3/movie/tt0499549/videos?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US"
-    });
-        
     
+ 
+
+    $(window).mousemove( function(event) {
+        let x = event.clientX;
+        let y = event.clientY;
+        
+
+        console.log(-(x-(innerWidth/2))*0.05 + "  " + -(y-(innerHeight/2))*0.05);
+    })
 
     $(window).scroll( function() {
        
         let offset = window.pageYOffset;
         window.innerHeight;
         $('#main-header-img').css("backgroundPositionY", -offset * 0.3 + "px");
+        $('#popcorn').css("top", 100-(offset * 0.1) + "vh" )
+                        .css("transform", "translate(-50%,0) rotate(" + -offset * 0.015 + "deg)");
+        $('#popcorn2').css("top", 100-(offset * 0.08) + "vh" )
+                        .css("transform", "translate(-50%,0) rotate(" + offset * 0.015 + "deg)");
+        $('#popcorn3').css("top", 100-(offset * 0.15) + "vh")
+                        .css("transform", "translate(-50%,0) rotate(" + offset * 0.015 + "deg)");
+        
         if ( offset >= window.innerHeight/2 ) {
             $('#main-text').css("top", 40 + "%");
         }
@@ -23,7 +32,7 @@ $(document).ready(function() {
             $('#offer-text').css("opacity", 1);
         }
         if ( offset >= window.innerHeight*3.4 ) {
-            $('#offer-text').css("top", 75 + "%");
+            $('#offer-text').css("top", 60 + "%");
         }
         if ( offset >= window.innerHeight*3.6) {
             $("#header").css("top", -20 + "%");
@@ -31,7 +40,10 @@ $(document).ready(function() {
         if ( offset <= window.innerHeight*3.5) {
             $("#header").css("top", 0 + "%");
         }
-            
+        if ( offset >= window.innerHeight*3.8 ) {
+            $('#goto-offer').css("opacity", 1 );
+        }
+        
         
 
         console.log(offset);
@@ -48,5 +60,12 @@ $(document).ready(function() {
         }
     });
 
+    $("#tothetop").click(function() {
+
+    
+        $(window).scrollTop(0);
+        
+        
+    });
 
 });

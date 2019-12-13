@@ -2,23 +2,27 @@
 #container {
     display: flex;
     background-image: linear-gradient(rgb(24, 24, 24), rgb(46, 46, 46));
+    
     #side-filter-overlay {
-        width:80px;
+        flex-basis: 80px;
+        flex-grow: 0;
+        flex-shrink: 0;
         overflow: hidden;
         border-right: 0px solid rgb(218, 30, 30);
         background-image: linear-gradient(rgb(46, 46, 46),rgb(24, 24, 24) ); 
         transition: all 0.7s;
         #side-filter {
-            width:30vw; 
+            width:600px;
             // background-image: linear-gradient(rgba(111, 11, 11, 0.555), rgba(51, 6, 6, 0.329));
             color:rgb(255, 255, 255);
             display: flex;
             font-size: 1.5em;
             justify-content: flex-start;
-            i {
-                top:10px;
+            i { 
                 text-align: center;
-                width:80px;
+                flex-basis: 80px;
+                flex-grow: 0;
+                flex-shrink: 0;
                 height:80px;
                 line-height: 80px;
                 cursor: pointer;
@@ -28,8 +32,7 @@
             }
             #filter-options {
                 padding-left:20px;
-                left:90px;
-                
+                left: 90px;
                 #filter-header {
                     text-align: center;
                     border-bottom: 1px solid white;
@@ -51,30 +54,39 @@
         }
     }
     #product-container {
-        width:95%;
         display: flex;
         justify-content: space-evenly;
         flex-wrap: wrap;       
         box-sizing: border-box;
         padding:2% 10%;
-        .imgcontainer {
+        .productcontent {
             width:26%;
             color:white;
             margin: 10px 0;
-            img {
-                position: relative;
-                width:100%;
-                transition: all 0.7s;
-                opacity: 0.6;
-                z-index: 0;
-                filter:grayscale(0.4);
-                cursor: pointer;
+            .imgcontainer {
+                transform:scale(1);
+                transition: all .7s;
+                img {
+                    position: relative;
+                    width:100%;
+                    transition: all 0.9s;
+                    opacity: 0.6;
+                    z-index: 0;
+                    filter:grayscale(0.4);
+                    cursor: pointer;
+                    display: block;
+                }
+                img:hover {
+                    opacity: 1;
+                    filter:grayscale(0);
+                   
+                }
             }
-            img:hover {
-                opacity: 1;
-                filter:grayscale(0);
-               
+            .imgcontainer:hover {
+                transform:scale(1.05);
             }
+          
+           
             span {
                 font-size: 0.7em;
                 display: block;
@@ -98,3 +110,4 @@
         }
     } 
 }
+

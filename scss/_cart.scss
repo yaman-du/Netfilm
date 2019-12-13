@@ -9,7 +9,25 @@
     text-align: center;
     box-shadow: 0 0 20px 3px black;
     cursor: pointer;
-
+    #success-container {
+        position: absolute;
+        background-color: white;
+        height: fit-content;
+        width:600px;
+        top:-200px; right:-50px;
+        transition: all 0.5s;
+        i {
+            color:green;
+            position: relative;
+            top:10px; left:0%;
+            font-size: 2em;
+        }
+        p {
+            font-size: 0.6em;
+            position: relative;
+            bottom: 0; left: 10px;
+        }
+    }
     #cart-count {
         position:absolute;
         bottom: -15px;right: 0;

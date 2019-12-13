@@ -1,0 +1,92 @@
+.big-container {
+    background-image: linear-gradient(rgb(46, 46, 46), rgb(24, 24, 24));
+    display: flex;
+    justify-content: center;
+    .container {
+        background-image: linear-gradient(rgb(24, 24, 24), rgb(46, 46, 46));
+        font-size: 0.8em;
+        color: white;
+        width: 500px;
+        #products {
+            height: auto;
+            width: 100%;
+            .product-container {
+                display: grid;
+                grid-template-columns: 40% 55% 5%;
+                grid-template-rows: 33% 33% 33%;
+                height: 220px;
+                padding-top: 20px;
+                img {
+                    grid-column: 1;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                    height: 150%;
+                }
+                .mini {
+                    font-size: 1em;
+                    width: 40%;
+                    margin: 15px 15px 15px 0px;
+                    grid-column: 2;
+                    grid-row: 2;
+                    display: flex;
+                    justify-content: space-between;
+                    border:2px solid rgb(255, 0, 0);
+                    border-radius: 15px;
+                    height: 25px;
+                    line-height: 25px;
+                    padding: 0 20px;
+                }
+                .plussa, .minuss, .antalFilmer {
+                    margin: 0;
+                }
+                h4 {
+                    grid-column: 2;
+                }
+                p {
+                    font-size: 0.8em;
+                    grid-column: 2;
+                }
+            }
+        }
+        .form-container {
+            h4 {
+                margin-top: 0%;
+                padding-top: 15px;
+            }
+            #form {
+                padding: 0 10px;
+                width: 100%;
+                box-sizing: border-box;
+                input {
+                    font-size: 85%;
+                    width: 100%;
+                }
+            }
+            .radio-container {
+                width: 50%;
+                input {
+                    float: right;
+                }
+                #buyBtn {
+                    font-size: 15px;
+                    border-radius: 25%;
+                    background-color: rgb(161, 245, 161);
+                }
+            }
+        }
+            ul {
+                li {
+                    display: inline-block;
+                    .facebook-icon {
+                        color: #3b5998
+                    }
+                    .instagram-icon {
+                        color: rgb(247, 108, 28);
+                    }
+                    .twitter-icon {
+                        color: #1da1f2;
+                    }
+                }
+            }
+    }
+}

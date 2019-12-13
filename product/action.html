@@ -11,22 +11,31 @@
 
     <body>
         <header id="second-header">
-            <ul>
-                <li><img src="../Images/television-white.png"/></li>
-                <li>Hem</li>
-                <li>kategorier</li>
+            
+            <ul id="navbar">
+                <li><i class="fas fa-tv"></i></li>
+                <li id="active"><a href="action.html">Action</a></li>
+                <li><a href="product/action.html">Skräck</a></li>
+                <li><a href="product/action.html">Drama</a></li>
+                <li><a href="product/action.html">Romantik</a></li>
+                <li><a href="product/action.html">Thriller</a></li>
+                <li><a href="product/action.html">Komedi</a></li>
             </ul>
             
             <div id="cart-icon">
                 <div id="cart-count">0</div>
                 <i class="fas fa-shopping-basket"></i>
+                <div id="success-container">
+                    <i class="far fa-check-circle"></i>
+                    <p id="success-text">har lagts till i varukorgen</p>
+                </div>
                 <div id="cart-container">
                     <div id="cart-header"><i class="far fa-arrow-alt-circle-right"></i><span>Din varukorg</span></div>
                     
                     <div id="total-price"></div>
                     <div id="cart-options">
                         <div id="remove-all"><i class="fas fa-trash-alt"></i></div>
-                        <div id="checkout-button">Till kassan</div>
+                        <a href="../checkout/checkout.html" ><div id="checkout-button">Till kassan</div></a>
                     </div> 
                 </div>
             </div>
@@ -51,7 +60,7 @@
 
         <div id="modal">
             <div id="modal-container">
-                <div id="modal-trailer"><iframe id="iframe-trailer" width="560" height="315" src="https://www.youtube.com/embed/rBxcF-r9Ibs?controls=0?&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                <div id="modal-trailer"><iframe id="iframe-trailer" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                 <div id="modal-body">
                     <span id="modal-title">---hämta Titel---</span>
                     <span id="modal-year">---hämta År---</span>
@@ -59,7 +68,8 @@
                     
                 </div>
                 <div id="modal-footer">
-                    <span id="modal-price">pris</span>
+                    <!-- Lägga in genres här? -->
+                    <!-- <span id="modal-price">pris</span> -->
                     <div class="buybtn">  köp  </div>
                 </div>
             </div>

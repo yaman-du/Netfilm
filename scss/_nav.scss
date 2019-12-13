@@ -11,16 +11,39 @@
         width:100%;
         color:white;
         list-style-type: none;
-        padding:0;
-        margin:0;
+        padding:0 10% 0 0 ;
+        margin:auto 0;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         li {
-            img {
-                width:80px;
-                padding:10px;
-                box-sizing: border-box;
+            position: relative;
+            a {
+                text-decoration-line: none;
+                color:white;
+                font-weight: lighter;
+            }
+            a::after {
+                width: 0%;
+                background-color: white;
+                height:2px;
+                content: '';
+                position: absolute;
+                bottom:0;
+                left:0;
+                transition: all 0.5s;
+                z-index: -1;
+            }
+            a:hover::after {
+                width: 100%;
+            }
+        }
+        #active {
+            a::after {
+                width:100%;
+            }
+            a:hover::after {
+
             }
         }
     } 
