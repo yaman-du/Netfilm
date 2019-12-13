@@ -68,4 +68,152 @@ $(document).ready(function() {
         
     });
 
+    
+    $('#cart-icon').click( function(event) {
+    
+        if( event.target == this || event.target == this.children[1] ) {
+            console.log($("#cart-container").css("right") + " " +
+            window.innerWidth);
+            if($("#cart-container").css("right") == "-1000px") {
+                $("#cart-container").css("right", "-50px");
+            }
+            else {
+                $('#cart-container').css("right", "-1000px");
+            } 
+        }
+        else {
+            return;
+           
+        }
+    });
+
+    $('.fa-arrow-alt-circle-right').click(function() {
+        if($("#cart-container").css("right") == "-1000px") {
+            $("#cart-container").css("right", "-50px");
+        }
+        else {
+            $('#cart-container').css("right", "-1000px");
+        } 
+    });
+    
+    $(document).mouseup(function (e) { 
+        if ($(e.target).closest("#cart-container").length 
+                    === 0) { 
+            $("#cart-container").css("right", "-1000px"); 
+        }
+        else {
+            $("#cart-container").css("right", "-50px");
+        } 
+    });
+
+    $("#remove-all").on("click", function() {
+        $('.cart-content').remove();
+        localStorage.clear();
+        $('#cart-count').html(0);
+        
+        $('#total-price').html("Totalpris: 0 kr");
+       
+    });
+    updatecart();
 });
+
+
+function updatecart() {
+    $('.cart-content').remove();
+    let cartcount = 0;
+    let totalprice = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {  
+        let productobject = localStorage.getItem(localStorage.key(i));
+        productobject = JSON.parse(productobject);
+        let div = $('<div>');
+        let img = $('<img>');   
+        let para = $('<p>');
+        let para2 = $('<p>');
+        let div2 = $('<div>');
+        let ileft = $('<p>');
+        let iright = $('<p>');
+        let para3 = $('<p>');
+        let div3 = $('<div>');
+
+        div.addClass('cart-content')
+            .insertAfter($('#cart-header'));
+
+        img.attr("src","http://image.tmdb.org/t/p/w500/" + productobject.imgurl )
+            .appendTo(div);
+
+        para.html(productobject.title)
+            .appendTo(div)
+            .addClass("title");
+
+        div3.html("&times")
+            .appendTo(div)
+            .addClass("remove")
+            .click(function() {
+                localStorage.removeItem(productobject.title);
+                updatecart();
+            });
+
+        para2.html( productobject.price*productobject.amount + " kr")
+            .appendTo(div)
+            .addClass("price");
+        
+        div2.appendTo(div)
+            .addClass("amount-div");
+        ileft.html("-")
+            .appendTo(div2)
+            .click(function() {
+                productobject.amount--;
+                if ( productobject.amount <= 0 ) {
+                    localStorage.removeItem(productobject.title);
+                }
+                else {
+                    localStorage.setItem(productobject.title, JSON.stringify(productobject));
+                }
+                
+                updatecart();
+            });
+
+        para3.html(productobject.amount)
+            .appendTo(div2);
+
+        iright.html("+")
+            .appendTo(div2)
+            .click(function() {
+                productobject.amount++;
+                console.log(productobject.amount);
+                localStorage.setItem(productobject.title, JSON.stringify(productobject));
+                updatecart();
+            });        
+
+        cartcount += productobject.amount;
+        totalprice += productobject.price*productobject.amount;
+
+        $('#cart-count').html(cartcount);
+     
+    }
+
+    $('#total-price').html("Totalpris: " + totalprice + " kr");     
+}
+
+function addtocart(a) {
+
+    $('#success-text').html(a.title + " har lagts till i varukorgen");
+    $('#success-container').css("top", -30 + "px");
+    
+    setTimeout(function() {
+        $('#success-container').css("top", -200 + "px");
+    }, 2500);
+
+
+    if ( localStorage.getItem(a.title) != undefined ) {
+        let p = localStorage.getItem(a.title);
+        p = JSON.parse(p);
+        p.amount++;
+        localStorage.setItem(a.title,JSON.stringify(p));
+    }
+    else {
+        localStorage.setItem(a.title, JSON.stringify(a));
+    } 
+
+}
