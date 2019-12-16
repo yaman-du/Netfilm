@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Checkout sida</title>
+        <meta charset="utf-8">
+        <link href="../css/main.css" rel="stylesheet">
+        <script src="../js/jquery-3.4.1.min.js"></script>
+        <script src="../js/checkout.js"></script>
+        <script src="https://kit.fontawesome.com/79397e9fed.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>     
+        <header id="second-header">    
+            <ul id="navbar">
+                <li><i class="fas fa-tv"></i></li>
+                <li><a href="../product/action.html">Action</a></li>
+                <li><a href="product/action.html">Skräck</a></li>
+                <li><a href="product/action.html">Drama</a></li>
+                <li><a href="product/action.html">Romantik</a></li>
+                <li><a href="product/action.html">Thriller</a></li>
+                <li><a href="product/action.html">Komedi</a></li>
+            </ul>
+        </header>
+            
+        <div class="big-container">
+            <!--Nedan kommer poster + info om film-->
+            <div class="container">
+                <div id="products">
+
+                </div>
+            <div class="form-container">
+                <h4>Kundinformation</h4>           
+                <form id="form" name="RegForm" action="tacksida.html">  
+                    
+                    <input type="text" name="name" required placeholder="Förnamn"><br>
+                    <input type="text" name="efternamn" required placeholder="Efternamn"><br>
+                    <input type="email" name="email"  required placeholder="E-mail"><br>
+                    <input type="text" name="address" required placeholder="Adress"><br>
+                </form>
+                <div class="radio-container"> 
+                    <p>Välj betalsätt nedan</p>
+                <form required name="pay">
+                    <span>Kort<input type="radio" name="pay" value="0"></span><br>
+                    <span>Swish<input type="radio" name="pay" value="0"></span><br>
+                    <span>Internetbank<input type="radio" name="pay" value="0"></span><br>
+                </form>
+                    
+                    <div id="totalPrice"></div>
+                    <a href="tacksida.html" target="_blank">
+                        <button id="buyBtn" type="submit">Köp!</button>
+                    </a>
+                </div>
+                
+            </div>
+            </div>
+        </div>  <div id="footer-container">
+                <div class="footer-content">
+                    <ul>
+                        <li><h2>Kontakt information</h2></li>
+                        <li><h3>Adress:</h3> <span> Tulegatan 41, 113 53 Stockholm</span> </li>
+                        <li><h3>Telefon:</h3><span> +46 2422 10 44</span></li>
+                        <li><h3>Email:</h3><span> netfilm@no-reply.com</span></li>
+                    </ul>
+                </div>
+                <div class="footer-content">
+                    <h2>Navigering</h2>
+                    <div id="columns">
+                        <ul id="footer-nav">
+                            <li><a href="/product/action.html">Action</a> </li>
+                            <li><a href="/product/action.html">Skräck</a> </li>
+                            <li><a href="/product/action.html">Drama</a> </li>
+                        </ul>
+                        <ul>
+                            <li><a href="/product/action.html">Thriller</a> </li>
+                            <li><a href="/product/action.html">Komedi</a> </li>
+                            <li><a href="/product/action.html">Romantik</a> </li>
+                            
+                        </ul>          
+                    </div>
+                    <span id="tothetop">Till Toppen</span>    
+                </div>
+                <div class="footer-content">
+                    <ul>
+                        <li><h2>Sociala medier</h2></li>
+                        <li><a href="http://www.twitter.com"><i class="fab fa-twitter-square"></i></a> </li>
+                        <li><a href="http://www.facebook.se"><i class="fab fa-facebook-square"></i></a> </li>
+                        <li><a href="http://www.instagram.se"><i class="fab fa-instagram"></i></a> </li>
+                    </ul>
+                </div>
+                <div id="footer-footer"><span>&copy; 2019 Netfilm.se, alla rättigheter förbehållna</span></div>
+            </div>
+    </body>
+</html>

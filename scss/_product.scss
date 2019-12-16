@@ -1,24 +1,57 @@
 
+@mixin tablet {
+    @media (min-width:600px) {@content;}
+
+}
+
+@mixin desktop {
+    @media (min-width:1000px){@content;}
+}
+
 #container {
     display: flex;
+    flex-direction: column;
     background-image: linear-gradient(rgb(24, 24, 24), rgb(46, 46, 46));
+    @include tablet {
+        display: flex;
+        flex-direction: column;
+    }
+    @include desktop {
+        display: flex;
+        flex-direction: row;
+    }
     #side-filter-overlay {
-        width:80px;
+        height: 80px;
         overflow: hidden;
         border-right: 0px solid rgb(218, 30, 30);
         background-image: linear-gradient(rgb(46, 46, 46),rgb(24, 24, 24) ); 
+        flex-shrink: 0;
+        
+        flex-grow: 0;
         transition: all 0.7s;
+        @include desktop {
+            height:auto;
+            flex-basis: 80px;
+        }
         #side-filter {
-            width:30vw; 
+            width:100vw;
             // background-image: linear-gradient(rgba(111, 11, 11, 0.555), rgba(51, 6, 6, 0.329));
             color:rgb(255, 255, 255);
             display: flex;
             font-size: 1.5em;
             justify-content: flex-start;
+            @include tablet {
+                width:100vw; 
+            }
+            @include desktop {
+                width:500px; 
+            }
             i {
-                top:10px;
+                flex-basis: 80px;
+                flex-grow: 0;
+                flex-shrink: 0;
                 text-align: center;
-                width:80px;
+                
                 height:80px;
                 line-height: 80px;
                 cursor: pointer;
@@ -28,8 +61,7 @@
             }
             #filter-options {
                 padding-left:20px;
-                left:90px;
-                
+                width:100%;
                 #filter-header {
                     text-align: center;
                     border-bottom: 1px solid white;
@@ -43,6 +75,7 @@
                     padding:10px 20px;
                     border-radius: 8px;
                     font-size: 0.8em;
+                    
                 }
                 p:hover {
                     background-color: red;
@@ -51,37 +84,57 @@
         }
     }
     #product-container {
-        width:95%;
+        width:fit-content;
+        flex:auto;
         display: flex;
         justify-content: space-evenly;
         flex-wrap: wrap;       
         box-sizing: border-box;
         padding:2% 10%;
-        .imgcontainer {
-            width:26%;
+        
+        .productcontent {
+            width:45%;
             color:white;
             margin: 10px 0;
-            img {
-                position: relative;
-                width:100%;
-                transition: all 0.7s;
-                opacity: 0.6;
-                z-index: 0;
-                filter:grayscale(0.4);
-                cursor: pointer;
+            @include tablet {
+                width:45%;
             }
-            img:hover {
+            @include desktop {
+                width:26%;
+            }
+            .imgcontainer {
+                
+                img {
+                    position: relative;
+                    width:100%;
+                    transition: all 0.9s;
+                    opacity: 0.6;
+                    z-index: 0;
+                    filter:grayscale(0.4);
+                    cursor: pointer;
+
+                    display: block;
+                    
+                }   
+            }
+            .imgcontainer:hover img {    
                 opacity: 1;
                 filter:grayscale(0);
-               
+                transform: scale(1.05);
             }
             span {
-                font-size: 0.7em;
+                font-size: 0.5em;
                 display: block;
                 text-align: center;
                 padding: 0;
                 height: 50px;
                 margin: 20px 0 0 0;
+                @include tablet {
+                    font-size: 0.7em;
+                }
+                @include desktop {
+                    font-size: 0.7em;
+                }
             }
             .addtocart {
                 font-size: 0.6em;
@@ -98,3 +151,29 @@
         }
     } 
 }
+
+@keyframes thing {
+
+    0%{clip-path: polygon(100% 69%, 100% 83%, 100% 100%, 79% 100%, 50% 100%, 100% 50%); filter: opacity(0.6) contrast(100%) invert(0);        }
+    16%{clip-path: polygon(100% 53%, 100% 75%, 76% 100%, 53% 100%, 25% 100%, 100% 25%);}
+    33%{clip-path: polygon(100% 27%, 100% 50%, 50% 100%, 27% 100%, 0 100%, 100% 0);}
+    50%{clip-path: polygon(100% 0, 100% 25%, 25% 100%, 0 100%, 0 75%, 75% 0);}
+    66%{clip-path: polygon(79% 0, 100% 0, 0 100%, 0 76%, 0 50%, 50% 0);}
+    83%{clip-path: polygon(45% 0, 75% 0, 0 75%, 0 48%, 0 25%, 25% 0);}
+    100%{clip-path: polygon(30% 0, 50% 0, 0 50%, 0 19%, 0 0, 14% 0);filter: opacity(0.6) contrast(200%) invert(1);        }
+     
+    }
+    
+    @keyframes thing2 {
+     0% {transform:scale(1);filter: opacity(1) contrast(100%) invert(0);}
+     100% {transform:scale(1.2);filter: opacity(0.6) contrast(200%) invert(1);}
+    }
+    
+    @keyframes thing3 {
+        0%{top:0px; right:0px;}
+        100%{top:-100px; right:-75px;}
+    }
+    @keyframes thing4 { 
+        0%{bottom:0px; left:0px;}
+        100%{bottom:-100px; left:-75px; }
+    }
