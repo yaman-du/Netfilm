@@ -1,6 +1,17 @@
+
+
+@mixin tablet {
+    @media (min-width:600px) {@content;}
+
+}
+
+@mixin desktop {
+    @media (min-width:1000px){@content;}
+}
+
 #second-header {
     width:100%;
-    background-color:rgb(218, 30, 30);
+    background-color:rgb(111, 11, 11);
     height: 80px;
     display: flex;
     flex-direction: row;
@@ -8,7 +19,7 @@
     z-index: 100;
     position: relative;
     ul {
-        width:100%;
+        width:70%;
         color:white;
         list-style-type: none;
         padding:0 10% 0 0 ;
@@ -16,8 +27,26 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        font-size: 0.5em;
+        @include tablet {
+            font-size: 0.7em;
+            width:80%;
+        }
+        @include desktop {
+            font-size: 1em;
+            width:100%;
+        }
         li {
             position: relative;
+            i {
+                display: none;
+                @include tablet {
+                    display: inline;
+                }
+                @include desktop {
+                    display: inline;
+                }
+            }
             a {
                 text-decoration-line: none;
                 color:white;
@@ -41,9 +70,6 @@
         #active {
             a::after {
                 width:100%;
-            }
-            a:hover::after {
-
             }
         }
     } 

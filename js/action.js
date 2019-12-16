@@ -40,57 +40,53 @@ $(document).ready(function() {
             else {
                 product.price = 129;
             }
-            //aktivering utav modal        
-            let productcontent = $('<div>');
-            productcontent.attr("class", "productcontent")
-                        .appendTo($('#product-container'));          
+            
             
 
-    
-
-            //bygger modal       
-            let imgcontainer=$('<div>');
-            imgcontainer.attr("class", "imgcontainer")
-                        .appendTo($(productcontent));           
-            let myImage=$('<img/>');
-            myImage.attr("src", "http://image.tmdb.org/t/p/w500/"+product.imgurl)
-                        .appendTo(imgcontainer)
-                        .click( function() {
-                            openModal(product);
-                        });
-                        
-            let titletext = $('<span>');
-            titletext.html(product.title)
-                .appendTo(productcontent);
-
-            let buybutton = $('<div>');
-            buybutton.html("Köp " + " " + " " + product.price + " kr")
-                    .appendTo(productcontent)
-                    .addClass("addtocart")
-                    .click(function() {
-                        addtocart( product );
-                        updatecart();
-                    });
-            
             if (i == actionlist.length-1 ) {
             
                 videoapi( productlist );
+                
             
             }
         });
 
     }
 
+
+
     
     let o = 0;
     $(".fa-sliders-h").on("click", function() {
       
         if (o == 0) {
-            $("#side-filter-overlay").css("flex-basis", "600px");
+            if ( innerWidth <= 600  ) {
+                $("#side-filter-overlay").css("height", "500px");
+                $("#side-filter-overlay").css("flex-basis", "auto");
+            }
+            else if ( innerWidth <= 1000){
+                $("#side-filter-overlay").css("height", "500px");
+                $("#side-filter-overlay").css("flex-basis", "auto");
+            }
+            else if ( innerWidth >= 1000){
+                $("#side-filter-overlay").css("flex-basis", "500px");
+                $("#side-filter-overlay").css("height", "auto");
+            }
             o = 1;
         }
         else {
-            $("#side-filter-overlay").css("flex-basis", "80px");
+            if (innerWidth <= 600  ) {
+                $("#side-filter-overlay").css("height", "80px");
+                $("#side-filter-overlay").css("flex-basis", "auto");
+            }
+            else if ( innerWidth <= 1000){
+                $("#side-filter-overlay").css("height", "80px");
+                $("#side-filter-overlay").css("flex-basis", "auto");
+            }
+            else if ( innerWidth >= 1000){
+                $("#side-filter-overlay").css("flex-basis", "80px");
+                $("#side-filter-overlay").css("height", "auto");
+            }
             o = 0;
         }
     });
@@ -143,9 +139,18 @@ $(document).ready(function() {
 
     updatecart();
     $("#lowtohigh").click(function() {
-        for ( let i = 0; i < $('#product-container')[0].childNodes.length-1; i++) {
-            
-        }
+        
+        productlist.sort(function(a,b){
+            return a.price - b.price
+        });
+        createElements(productlist);
+    });
+    $("#hightolow").click(function() {
+        
+        productlist.sort(function(a,b){
+            return  b.price - a.price;
+        });
+        createElements(productlist);
     });
 }); 
 
@@ -266,7 +271,47 @@ function videoapi( datalist ) {
         })
  
     }
+    createElements(datalist);
 
+}
+
+function createElements( productlist ) {
+
+    $('.productcontent').remove();
+    for (i = 0; i < productlist.length; i++) {
+    //aktivering utav modal  
+    let product = productlist[i];
+    let productcontent = $('<div>');
+    productcontent.attr("class", "productcontent")
+                .appendTo($('#product-container'));          
+     
+    let imgcontainer=$('<div>');
+    imgcontainer.attr("class", "imgcontainer")
+                .appendTo($(productcontent));      
+                     
+    let myImage=$('<img/>');
+    myImage.attr("src", "http://image.tmdb.org/t/p/w500/"+product.imgurl)
+                .appendTo(imgcontainer)
+                .click( function() {
+                    openModal(product);
+                    
+                });
+                
+    let titletext = $('<span>');
+    titletext.html(product.title)
+        .appendTo(productcontent);
+
+    let buybutton = $('<div>');
+    buybutton.html("Köp " + " " + " " + product.price + " kr")
+            .appendTo(productcontent)
+            .addClass("addtocart")
+            .click(function() {
+                addtocart( product );
+                updatecart();
+            });
+     
+    }
+    
 }
 
 function openModal( product ) {
@@ -295,3 +340,4 @@ function openModal( product ) {
                     updatecart();
                 });
 }
+

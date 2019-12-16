@@ -6,11 +6,6 @@
 @import 'nav';
 @import 'modal';
 @import 'checkout';
-html {
-    scroll-behavior: smooth;
-
-}
-
 
 @mixin tablet {
     @media (min-width:600px) {@content;}
@@ -21,15 +16,17 @@ html {
     @media (min-width:1000px){@content;}
 }
 
+html {
+    scroll-behavior: smooth;
+
+}
 body {
 
     margin:0;
     font-size: 20pt;
     font-family: 'Ubuntu', sans-serif;
 }
-#category-container {
-    
-    
+#category-container {    
     background-image: linear-gradient(rgb(19, 19, 19), rgb(24, 24, 24));
     display: flex;
     justify-content: space-evenly;

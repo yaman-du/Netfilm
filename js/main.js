@@ -1,13 +1,13 @@
 $(document).ready(function() {
     
- 
+    updatecart();
 
     $(window).mousemove( function(event) {
         let x = event.clientX;
         let y = event.clientY;
         
 
-        console.log(-(x-(innerWidth/2))*0.05 + "  " + -(y-(innerHeight/2))*0.05);
+        //console.log(-(x-(innerWidth/2))*0.05 + "  " + -(y-(innerHeight/2))*0.05);
     })
 
     $(window).scroll( function() {
@@ -15,7 +15,7 @@ $(document).ready(function() {
         let offset = window.pageYOffset;
         window.innerHeight;
         $('#main-header-img').css("backgroundPositionY", -offset * 0.3 + "px");
-        $('#popcorn').css("top", 100-(offset * 0.1) + "vh" )
+        $('#popcorn1').css("top", 100-(offset * 0.1) + "vh" )
                         .css("transform", "translate(-50%,0) rotate(" + -offset * 0.015 + "deg)");
         $('#popcorn2').css("top", 100-(offset * 0.08) + "vh" )
                         .css("transform", "translate(-50%,0) rotate(" + offset * 0.015 + "deg)");
@@ -46,17 +46,21 @@ $(document).ready(function() {
         
         
 
-        console.log(offset);
+        //console.log(offset);
     });
     
     $("#category-toggle").click(function(){
         if($(".category").css("opacity") == 0 ) {
             $(".category").css("opacity","1");
             $(".category").css("right","0");
+            $(".category-link").css("pointer-events", "all");
+            $(".category").css("cursor", "pointer");
         }
         else {
             $(".category").css("opacity","0"); 
             $(".category").css("right","50px");
+            $(".category-link").css("pointer-events", "none");
+            $(".category").css("cursor", "default");
         }
     });
 
@@ -68,7 +72,6 @@ $(document).ready(function() {
         
     });
 
-    
     $('#cart-icon').click( function(event) {
     
         if( event.target == this || event.target == this.children[1] ) {
@@ -95,16 +98,6 @@ $(document).ready(function() {
             $('#cart-container').css("right", "-1000px");
         } 
     });
-    
-    $(document).mouseup(function (e) { 
-        if ($(e.target).closest("#cart-container").length 
-                    === 0) { 
-            $("#cart-container").css("right", "-1000px"); 
-        }
-        else {
-            $("#cart-container").css("right", "-50px");
-        } 
-    });
 
     $("#remove-all").on("click", function() {
         $('.cart-content').remove();
@@ -114,9 +107,8 @@ $(document).ready(function() {
         $('#total-price').html("Totalpris: 0 kr");
        
     });
-    updatecart();
-});
 
+});
 
 function updatecart() {
     $('.cart-content').remove();
@@ -194,26 +186,4 @@ function updatecart() {
     }
 
     $('#total-price').html("Totalpris: " + totalprice + " kr");     
-}
-
-function addtocart(a) {
-
-    $('#success-text').html(a.title + " har lagts till i varukorgen");
-    $('#success-container').css("top", -30 + "px");
-    
-    setTimeout(function() {
-        $('#success-container').css("top", -200 + "px");
-    }, 2500);
-
-
-    if ( localStorage.getItem(a.title) != undefined ) {
-        let p = localStorage.getItem(a.title);
-        p = JSON.parse(p);
-        p.amount++;
-        localStorage.setItem(a.title,JSON.stringify(p));
-    }
-    else {
-        localStorage.setItem(a.title, JSON.stringify(a));
-    } 
-
 }
