@@ -5,10 +5,7 @@ $(document).ready(function() {
     $(window).mousemove( function(event) {
         let x = event.clientX;
         let y = event.clientY;
-        
-
-        //console.log(-(x-(innerWidth/2))*0.05 + "  " + -(y-(innerHeight/2))*0.05);
-    })
+    });
 
     $(window).scroll( function() {
        
@@ -21,7 +18,7 @@ $(document).ready(function() {
                         .css("transform", "translate(-50%,0) rotate(" + offset * 0.015 + "deg)");
         $('#popcorn3').css("top", 100-(offset * 0.15) + "vh")
                         .css("transform", "translate(-50%,0) rotate(" + offset * 0.015 + "deg)");
-        
+
         if ( offset >= window.innerHeight/2 ) {
             $('#main-text').css("top", 40 + "%");
         }
@@ -43,10 +40,7 @@ $(document).ready(function() {
         if ( offset >= window.innerHeight*3.8 ) {
             $('#goto-offer').css("opacity", 1 );
         }
-        
-        
 
-        //console.log(offset);
     });
     
     $("#category-toggle").click(function(){
@@ -110,14 +104,19 @@ $(document).ready(function() {
 
 });
 
+
 function updatecart() {
     $('.cart-content').remove();
     let cartcount = 0;
     let totalprice = 0;
 
     for (let i = 0; i < localStorage.length; i++) {  
-        let productobject = localStorage.getItem(localStorage.key(i));
-        productobject = JSON.parse(productobject);
+        let cartitem = localStorage.getItem(localStorage.key(i));
+        cartitem = JSON.parse(cartitem);
+        
+        let product = cartitem[1];
+        let amount = cartitem[0];
+        
         let div = $('<div>');
         let img = $('<img>');   
         let para = $('<p>');
@@ -131,10 +130,10 @@ function updatecart() {
         div.addClass('cart-content')
             .insertAfter($('#cart-header'));
 
-        img.attr("src","http://image.tmdb.org/t/p/w500/" + productobject.imgurl )
+        img.attr("src","http://image.tmdb.org/t/p/w500/" + product.imgurl )
             .appendTo(div);
 
-        para.html(productobject.title)
+        para.html(product.title)
             .appendTo(div)
             .addClass("title");
 
@@ -142,44 +141,43 @@ function updatecart() {
             .appendTo(div)
             .addClass("remove")
             .click(function() {
-                localStorage.removeItem(productobject.title);
+                localStorage.removeItem(product.title);
                 updatecart();
             });
 
-        para2.html( productobject.price*productobject.amount + " kr")
+        para2.html( product.price*amount + " kr")
             .appendTo(div)
             .addClass("price");
-        
+    
         div2.appendTo(div)
             .addClass("amount-div");
         ileft.html("-")
             .appendTo(div2)
-            .click(function() {
-                productobject.amount--;
-                if ( productobject.amount <= 0 ) {
-                    localStorage.removeItem(productobject.title);
+            .on("click", function() {
+                cartitem[0]--;
+                
+                if ( cartitem[0] <= 0 ) {
+                    localStorage.removeItem(product.title);
                 }
                 else {
-                    localStorage.setItem(productobject.title, JSON.stringify(productobject));
-                }
-                
+                    localStorage.setItem(product.title, JSON.stringify( cartitem ));
+                }            
                 updatecart();
             });
-
-        para3.html(productobject.amount)
+        para3.html( cartitem[0] )
             .appendTo(div2);
 
         iright.html("+")
             .appendTo(div2)
             .click(function() {
-                productobject.amount++;
-                console.log(productobject.amount);
-                localStorage.setItem(productobject.title, JSON.stringify(productobject));
+                cartitem[0]++;
+                
+                localStorage.setItem( product.title, JSON.stringify( cartitem ));
                 updatecart();
             });        
 
-        cartcount += productobject.amount;
-        totalprice += productobject.price*productobject.amount;
+        cartcount += amount;
+        totalprice += product.price*amount;
 
         $('#cart-count').html(cartcount);
      

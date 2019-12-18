@@ -23,13 +23,12 @@
     #side-filter-overlay {
         height: 80px;
         overflow: hidden;
-        border-right: 0px solid rgb(218, 30, 30);
-        background-image: linear-gradient(rgb(46, 46, 46),rgb(24, 24, 24) ); 
-        flex-shrink: 0;
-        
+        background-color: rgb(46, 46, 46);
+        flex-shrink: 0; 
         flex-grow: 0;
-        transition: all 0.7s;
+        transition: all 0.7s ease-out;
         @include desktop {
+            background-image: linear-gradient(rgb(46, 46, 46),rgb(24, 24, 24) ); 
             height:auto;
             flex-basis: 80px;
         }
@@ -44,14 +43,13 @@
                 width:100vw; 
             }
             @include desktop {
-                width:500px; 
+                width:300px;      
             }
             i {
                 flex-basis: 80px;
                 flex-grow: 0;
                 flex-shrink: 0;
-                text-align: center;
-                
+                text-align: center; 
                 height:80px;
                 line-height: 80px;
                 cursor: pointer;
@@ -60,25 +58,61 @@
                 background-color: rgba(0, 0, 0, 0.486);
             }
             #filter-options {
-                padding-left:20px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 width:100%;
                 #filter-header {
+                    font-weight: bold;
                     text-align: center;
-                    border-bottom: 1px solid white;
-                    border-top:0;
-                    border-right:0;
-                    border-left:0;
-                    border-radius: 0;
+                    margin: 80px 0 0 0;
+                    padding-right:80px ;
                 }
-                p {
-                    border:2px solid red;
-                    padding:10px 20px;
-                    border-radius: 8px;
-                    font-size: 0.8em;
-                    
-                }
-                p:hover {
-                    background-color: red;
+                form {
+                    width:100%;
+                    height: 100%;
+                   
+                    text-align: center;
+                    padding-right: 80px;
+                    box-sizing: border-box;
+                
+                    div {
+                        display: inline;
+                        text-align: left;
+                        margin-right: auto;
+                        white-space: nowrap;
+                        @include desktop {
+                            height: 15%;
+                            display: block;
+                        }
+                        input {
+                            cursor: pointer;
+                            border: 0;
+                            background-color: white;
+                            color: transparent;
+                            transform: translate(0, 25%);
+                            -webkit-appearance: none;
+                            border-radius: 50%;
+                            border:1px solid black;
+                            box-sizing:border-box ;
+                            width:30px;
+                            height:30px;
+                            transition: all 0.3s linear;
+                            margin: 0;
+                        }
+                        input:checked {
+                            outline: 0;
+                            border:8px solid red;
+                        }
+                        
+                        label {
+                            font-size: 0.4em;
+                            margin:auto;
+                            font-weight: lighter;
+                            @include desktop {
+                                font-size: 0.6em;
+                            }
+                         
+                        }
+                    }  
                 }
             }
         }
@@ -107,22 +141,23 @@
                 img {
                     position: relative;
                     width:100%;
-                    transition: all 0.9s;
+                    
                     opacity: 0.6;
                     z-index: 0;
                     filter:grayscale(0.4);
                     cursor: pointer;
 
                     display: block;
-                    
+                    transform: perspective(5000px) scaleZ(5) rotateX(0deg) rotateY(0deg);
                 }   
             }
             .imgcontainer:hover img {    
                 opacity: 1;
                 filter:grayscale(0);
-                transform: scale(1.05);
+                //ransform: perspective(5000px) scaleZ(5) rotateX(0deg) rotateY(0deg);
             }
             span {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 font-size: 0.5em;
                 display: block;
                 text-align: center;
@@ -152,28 +187,3 @@
     } 
 }
 
-@keyframes thing {
-
-    0%{clip-path: polygon(100% 69%, 100% 83%, 100% 100%, 79% 100%, 50% 100%, 100% 50%); filter: opacity(0.6) contrast(100%) invert(0);        }
-    16%{clip-path: polygon(100% 53%, 100% 75%, 76% 100%, 53% 100%, 25% 100%, 100% 25%);}
-    33%{clip-path: polygon(100% 27%, 100% 50%, 50% 100%, 27% 100%, 0 100%, 100% 0);}
-    50%{clip-path: polygon(100% 0, 100% 25%, 25% 100%, 0 100%, 0 75%, 75% 0);}
-    66%{clip-path: polygon(79% 0, 100% 0, 0 100%, 0 76%, 0 50%, 50% 0);}
-    83%{clip-path: polygon(45% 0, 75% 0, 0 75%, 0 48%, 0 25%, 25% 0);}
-    100%{clip-path: polygon(30% 0, 50% 0, 0 50%, 0 19%, 0 0, 14% 0);filter: opacity(0.6) contrast(200%) invert(1);        }
-     
-    }
-    
-    @keyframes thing2 {
-     0% {transform:scale(1);filter: opacity(1) contrast(100%) invert(0);}
-     100% {transform:scale(1.2);filter: opacity(0.6) contrast(200%) invert(1);}
-    }
-    
-    @keyframes thing3 {
-        0%{top:0px; right:0px;}
-        100%{top:-100px; right:-75px;}
-    }
-    @keyframes thing4 { 
-        0%{bottom:0px; left:0px;}
-        100%{bottom:-100px; left:-75px; }
-    }

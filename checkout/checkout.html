@@ -36,18 +36,21 @@
                     <input type="text" name="efternamn" required placeholder="Efternamn"><br>
                     <input type="email" name="email"  required placeholder="E-mail"><br>
                     <input type="text" name="address" required placeholder="Adress"><br>
+                </form>
                 <div class="radio-container"> 
                     <p>Välj betalsätt nedan</p>
-                    <span>Kort<input type="radio" name="pay" value="Kort"></span><br>
-                    <span>Swish<input type="radio" name="pay" value="Swish"></span><br>
-                    <span>Internetbank<input type="radio" name="pay" value="Internetbank"></span><br>
-
+                <form required name="pay">
+                    <span>Kort<input type="radio" name="pay" value="0"></span><br>
+                    <span>Swish<input type="radio" name="pay" value="0"></span><br>
+                    <span>Internetbank<input type="radio" name="pay" value="0"></span><br>
+                </form>
+                    
                     <div id="totalPrice"></div>
                     <a href="tacksida.html" target="_blank">
                         <button id="buyBtn" type="submit">Köp!</button>
                     </a>
                 </div>
-                </form>
+                
             </div>
             </div>
         </div>  <div id="footer-container">

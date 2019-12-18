@@ -11,7 +11,6 @@ $(document).ready(function() {
         this.vote = a;
         this.price = 0;
         this.genre = [];
-        this.amount = 1;
     }
     
     let productlist = [];
@@ -22,14 +21,19 @@ $(document).ready(function() {
             async: false,
         });
 
-
         a.done(function(data) {
             
             let movieresult = data.movie_results[0];
 
             let product = new Product(movieresult.title, movieresult.poster_path, movieresult.release_date, "", movieresult.overview, movieresult.vote_average);
             
-            productlist.push(product);
+            let cartitem = [];
+            
+            let amount = 1;
+
+            cartitem.push(amount);
+            cartitem.push(product);
+            productlist.push(cartitem);
             
             if ( product.vote < 7.2) {
                 product.price = 79;
@@ -41,53 +45,51 @@ $(document).ready(function() {
                 product.price = 129;
             }
             
-            
-
             if (i == actionlist.length-1 ) {
             
                 videoapi( productlist );
-                
-            
+        
             }
         });
-
     }
 
+    $(window).on('resize', function() {
 
+        if ( innerWidth <= 1000 ) {
+            $("#side-filter-overlay").css("height", "80px");
+            $("#side-filter-overlay").css("flex-basis", "auto");
+            
+        }
+        if ( innerWidth >= 1000 ) {
+            $("#side-filter-overlay").css("flex-basis", "80px");
+            $("#side-filter-overlay").css("height", "auto");
+           
+        }
+    })
 
-    
-    let o = 0;
     $(".fa-sliders-h").on("click", function() {
-      
-        if (o == 0) {
-            if ( innerWidth <= 600  ) {
-                $("#side-filter-overlay").css("height", "500px");
+        if ( $("#side-filter-overlay").css("height") == "80px" || $("#side-filter-overlay").css("flex-basis") == "80px" ) {
+            
+            if ( innerWidth <= 1000 ) {
+                $("#side-filter-overlay").css("height", "250px");
                 $("#side-filter-overlay").css("flex-basis", "auto");
             }
-            else if ( innerWidth <= 1000){
-                $("#side-filter-overlay").css("height", "500px");
-                $("#side-filter-overlay").css("flex-basis", "auto");
-            }
-            else if ( innerWidth >= 1000){
-                $("#side-filter-overlay").css("flex-basis", "500px");
+            else if ( innerWidth >= 1000 ) {
+                $("#side-filter-overlay").css("flex-basis", "300px");
                 $("#side-filter-overlay").css("height", "auto");
             }
-            o = 1;
+    
         }
         else {
-            if (innerWidth <= 600  ) {
+            if ( innerWidth <= 1000 ) {
                 $("#side-filter-overlay").css("height", "80px");
                 $("#side-filter-overlay").css("flex-basis", "auto");
             }
-            else if ( innerWidth <= 1000){
-                $("#side-filter-overlay").css("height", "80px");
-                $("#side-filter-overlay").css("flex-basis", "auto");
-            }
-            else if ( innerWidth >= 1000){
+            else if ( innerWidth >= 1000 ) {
                 $("#side-filter-overlay").css("flex-basis", "80px");
                 $("#side-filter-overlay").css("height", "auto");
             }
-            o = 0;
+     
         }
     });
 
@@ -138,23 +140,64 @@ $(document).ready(function() {
     });
 
     updatecart();
-    $("#lowtohigh").click(function() {
+
+
+    $("#sortChoice1").on("click", function() {
         
         productlist.sort(function(a,b){
-            return a.price - b.price
+            return a[1].price - b[1].price
+        });
+        createElements(productlist);
+         
+    });
+    $("#sortChoice2").on("click", function() {
+        
+        productlist.sort(function(a,b){
+            return  b[1].price - a[1].price;
         });
         createElements(productlist);
     });
-    $("#hightolow").click(function() {
+
+    $("#sortChoice3").on("click", function() {
         
         productlist.sort(function(a,b){
-            return  b.price - a.price;
+            let  fy = a[1].year.substring(0,4);
+            let sy = b[1].year.substring(0,4);
+            return   sy - fy  ;
         });
         createElements(productlist);
     });
+    $("#sortChoice4").on("click", function() {
+        
+        productlist.sort(function(a,b){
+            let  fy = a[1].year.substring(0,4);
+            let sy = b[1].year.substring(0,4);
+            return   fy - sy;
+        });
+        createElements(productlist);
+    });
+    $("#sortChoice5").on("click", function() {
+  
+        productlist.sort(function(a,b){
+            
+            if(a[1].title < b[1].title) {  return -1;  }
+            if(a[1].title > b[1].title) { return 1; }
+            return 0;
+        });
+        createElements(productlist);
+    });
+    $("#sortChoice6").on("click", function() {
+  
+        productlist.sort(function(a,b){
+            
+            if(a[1].title > b[1].title) {  return -1;  }
+            if(a[1].title < b[1].title) { return 1; }
+            return 0;
+        });
+        createElements(productlist);
+    });
+
 }); 
-
-
 
 function updatecart() {
     $('.cart-content').remove();
@@ -162,8 +205,12 @@ function updatecart() {
     let totalprice = 0;
 
     for (let i = 0; i < localStorage.length; i++) {  
-        let productobject = localStorage.getItem(localStorage.key(i));
-        productobject = JSON.parse(productobject);
+        let cartitem = localStorage.getItem(localStorage.key(i));
+        cartitem = JSON.parse(cartitem);
+        
+        let product = cartitem[1];
+        let amount = cartitem[0];
+        
         let div = $('<div>');
         let img = $('<img>');   
         let para = $('<p>');
@@ -177,10 +224,10 @@ function updatecart() {
         div.addClass('cart-content')
             .insertAfter($('#cart-header'));
 
-        img.attr("src","http://image.tmdb.org/t/p/w500/" + productobject.imgurl )
+        img.attr("src","http://image.tmdb.org/t/p/w500/" + product.imgurl )
             .appendTo(div);
 
-        para.html(productobject.title)
+        para.html(product.title)
             .appendTo(div)
             .addClass("title");
 
@@ -188,44 +235,43 @@ function updatecart() {
             .appendTo(div)
             .addClass("remove")
             .click(function() {
-                localStorage.removeItem(productobject.title);
+                localStorage.removeItem(product.title);
                 updatecart();
             });
 
-        para2.html( productobject.price*productobject.amount + " kr")
+        para2.html( product.price*amount + " kr")
             .appendTo(div)
             .addClass("price");
-        
+    
         div2.appendTo(div)
             .addClass("amount-div");
         ileft.html("-")
             .appendTo(div2)
-            .click(function() {
-                productobject.amount--;
-                if ( productobject.amount <= 0 ) {
-                    localStorage.removeItem(productobject.title);
+            .on("click", function() {
+                cartitem[0]--;
+                
+                if ( cartitem[0] <= 0 ) {
+                    localStorage.removeItem(product.title);
                 }
                 else {
-                    localStorage.setItem(productobject.title, JSON.stringify(productobject));
-                }
-                
+                    localStorage.setItem(product.title, JSON.stringify( cartitem ));
+                }            
                 updatecart();
             });
-
-        para3.html(productobject.amount)
+        para3.html( cartitem[0] )
             .appendTo(div2);
 
         iright.html("+")
             .appendTo(div2)
             .click(function() {
-                productobject.amount++;
-                console.log(productobject.amount);
-                localStorage.setItem(productobject.title, JSON.stringify(productobject));
+                cartitem[0]++;
+                
+                localStorage.setItem( product.title, JSON.stringify( cartitem ));
                 updatecart();
             });        
 
-        cartcount += productobject.amount;
-        totalprice += productobject.price*productobject.amount;
+        cartcount += amount;
+        totalprice += product.price*amount;
 
         $('#cart-count').html(cartcount);
      
@@ -234,9 +280,13 @@ function updatecart() {
     $('#total-price').html("Totalpris: " + totalprice + " kr");     
 }
 
-function addtocart(a) {
-
-    $('#success-text').html(a.title + " har lagts till i varukorgen");
+function addtocart( product, amount ) {
+   
+    let cartitem = [];
+    cartitem.push(amount);
+    cartitem.push(product);
+    
+    $('#success-text').html(product.title + " har lagts till i varukorgen");
     $('#success-container').css("top", -30 + "px");
     
     setTimeout(function() {
@@ -244,34 +294,36 @@ function addtocart(a) {
     }, 2500);
 
 
-    if ( localStorage.getItem(a.title) != undefined ) {
-        let p = localStorage.getItem(a.title);
-        p = JSON.parse(p);
-        p.amount++;
-        localStorage.setItem(a.title,JSON.stringify(p));
+    if ( localStorage.getItem( product.title ) != undefined ) {
+        let cartitem = localStorage.getItem( product.title );
+      
+        cartitem = JSON.parse( cartitem );
+        
+        cartitem[0]++;
+        
+        localStorage.setItem( cartitem[1].title,JSON.stringify( cartitem ));
     }
     else {
-        localStorage.setItem(a.title, JSON.stringify(a));
+        localStorage.setItem( product.title, JSON.stringify( cartitem ));
     } 
 
 }
 
-function videoapi( datalist ) {
+function videoapi( productlist ) {
 
     let actionlist = ["tt0110413", "tt0060196", "tt0468569", "tt5463162", "tt1074638", "tt0090605", "tt0172495", "tt7975244"];
 
-    for ( let i = 0; i < datalist.length; i++){
+    for ( let i = 0; i < productlist.length; i++){
         let b = $.ajax("https://api.themoviedb.org/3/movie/"+actionlist[i] +"/videos?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US", {
             method:'GET',
             async: false,
         });
         b.done(function( data ){
-            datalist[i].trailerurl = data.results[0].key;
-
+            productlist[i][1].trailerurl = data.results[0].key;
         })
  
     }
-    createElements(datalist);
+    createElements( productlist );
 
 }
 
@@ -279,42 +331,57 @@ function createElements( productlist ) {
 
     $('.productcontent').remove();
     for (i = 0; i < productlist.length; i++) {
-    //aktivering utav modal  
-    let product = productlist[i];
-    let productcontent = $('<div>');
-    productcontent.attr("class", "productcontent")
-                .appendTo($('#product-container'));          
-     
-    let imgcontainer=$('<div>');
-    imgcontainer.attr("class", "imgcontainer")
-                .appendTo($(productcontent));      
-                     
-    let myImage=$('<img/>');
-    myImage.attr("src", "http://image.tmdb.org/t/p/w500/"+product.imgurl)
-                .appendTo(imgcontainer)
-                .click( function() {
-                    openModal(product);
-                    
-                });
-                
-    let titletext = $('<span>');
-    titletext.html(product.title)
-        .appendTo(productcontent);
+        //aktivering utav modal  
+        let product = productlist[i][1];
+        let amount = productlist[i][0];
 
-    let buybutton = $('<div>');
-    buybutton.html("Köp " + " " + " " + product.price + " kr")
-            .appendTo(productcontent)
-            .addClass("addtocart")
-            .click(function() {
-                addtocart( product );
-                updatecart();
-            });
-     
+        let productcontent = $('<div>');
+        productcontent.attr("class", "productcontent")
+                    .appendTo($('#product-container'));          
+        
+        let imgcontainer=$('<div>');
+        imgcontainer.attr("class", "imgcontainer")
+                    .appendTo($(productcontent))
+                    .on("mousemove", function(event) {
+                        let x = event.offsetX;
+                        let y = event.offsetY;
+                        let o = event.currentTarget.children[0];
+                        console.log(o.height + " " + o.width);
+                        //o.setAttribute("transform", "perspective(1000px) scaleZ(1) rotateX(" + x*0.5 + "deg) rotateY("+ y*0.5 + "deg)");
+                        o.setAttribute("style", "transform: perspective(1000px) scaleZ(1) rotateX(" + -(y-(o.height/2))*0.05 + "deg) rotateY("+ (x-(o.width/2))*0.05 + "deg)");
+                    })
+                    .on("mouseout", function(event) {
+                        let o = event.currentTarget.children[0];
+                        o.setAttribute("style", "transform: perspective(1000px) scaleZ(1) rotateX(0deg) rotateY(0deg);  transition: all 0.9s;");
+                    });     
+                        
+        let myImage=$('<img/>');
+        myImage.attr("src", "http://image.tmdb.org/t/p/w500/"+product.imgurl)
+                    .appendTo(imgcontainer)
+                    .click( function() {
+                        openModal(product, amount);
+                        
+                    });
+                    
+        let titletext = $('<span>');
+        titletext.html(product.title)
+            .appendTo(productcontent);
+
+
+        let buybutton = $('<div>');
+        buybutton.html("Köp " + " " + " " + product.price + " kr")
+                .appendTo(productcontent)
+                .addClass("addtocart")
+                .on("click", function() {
+                    addtocart( product, amount );
+                    updatecart();
+                });
+        
     }
     
 }
 
-function openModal( product ) {
+function openModal( product, amount ) {
     
     $("#iframe-trailer").attr("src", "https://www.youtube.com/embed/" + product.trailerurl + "?controls=0?&autoplay=1");
     $("#modal-title").html(product.title);
@@ -334,9 +401,7 @@ function openModal( product ) {
     $(".buybtn").off("click");
     $(".buybtn").html("Köp " + product.price + " kr")
                 .click(function() {
-                    console.log(product);
-                    console.log("hej");
-                    addtocart( product );
+                    addtocart( product, amount );
                     updatecart();
                 });
 }
