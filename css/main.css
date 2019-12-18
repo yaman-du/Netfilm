@@ -368,7 +368,8 @@
   height: 70px;
   text-align: center;
   box-shadow: 0 0 20px 3px black;
-  cursor: pointer; }
+  cursor: pointer;
+  z-index: 100; }
   #cart-icon #success-container {
     position: absolute;
     background-color: white;
