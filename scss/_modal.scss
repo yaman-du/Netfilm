@@ -10,7 +10,7 @@
     background-color: rgba(0,0,0,0.2);
     
     #modal-container{
-        background-color: whitesmoke;;
+        background-color: rgb(255, 255, 255);;
         margin: 3% auto;
         width: 75%;
         box-shadow: 0 0 20px 11px rgba(0, 0, 0, 0.9);
@@ -29,24 +29,32 @@
                 position:absolute;
         }
         }
-        #modal-body{
-        background-color: rgb(230, 230, 230);
-            p{
-                background-color: #fff;
-                margin: 0;
-                font-size: .75em;
-                padding: 0px 30px;
-            }
+        #modal-header{
+            background-color: rgb(230, 230, 230);
+            padding: 5px;
             #modal-title{
                 padding-left: 15px;
             }
         }
+        
+        #modal-body{
+            background-color: #fff;
+            
+            font-size: .75em;
+            padding: 0px 30px;    
+            p{
+                margin: 10px 0px 5px 0px;
+            }
+        } 
+
+ 
+
         #modal-footer{
-        background-color: rgb(255, 255, 255);
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-        border-radius: 6px;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            border-radius: 6px;
             span{
                 width: 20%;
                 text-align: center;

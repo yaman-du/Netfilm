@@ -21,11 +21,14 @@
     z-index: 10;
     transition: all 0.7s ease-in-out;
     color:rgb(216, 216, 216);  
-    .fa-tv {
+    a {
+
+    }
+    img {
         font-size: 2em;
-        margin: auto 0 auto 20px;
+        margin: auto 0 auto 30px;
         display: none;
-    
+        width:95px;
         @include desktop {
             display: inline;
         }

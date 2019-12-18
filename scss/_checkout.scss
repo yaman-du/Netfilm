@@ -7,6 +7,10 @@
         font-size: 0.8em;
         color: white;
         width: 500px;
+        #totalPrice {
+            display: flex;
+            justify-content: center;
+        }
         #products {
             height: auto;
             width: 100%;
@@ -16,6 +20,9 @@
                 grid-template-rows: 33% 33% 33%;
                 height: 220px;
                 padding-top: 20px;
+                .x {
+                    cursor: pointer;
+                }
                 img {
                     grid-column: 1;
                     grid-row-start: 1;
@@ -39,6 +46,10 @@
                 .plussa, .minuss, .antalFilmer {
                     margin: 0;
                 }
+                .plussa, .minuss {
+                    cursor: pointer;
+                    padding: 0 5px;
+                }
                 h4 {
                     grid-column: 2;
                 }
@@ -52,41 +63,105 @@
             h4 {
                 margin-top: 0%;
                 padding-top: 15px;
+                padding-left: 10px;
             }
             #form {
                 padding: 0 10px;
                 width: 100%;
                 box-sizing: border-box;
-                input {
+                text-align: center;
+                .nameContainer {
+                    width: 100%;
+                    display: flex;
+                    #firstName, #lastName {
+                        width: 50%;
+                        font-size: 85%;
+                        margin-bottom: 10px;
+                        padding: 1px;
+                    }
+                    #lastName {
+                        margin-left: 10px;
+                    }
+                }
+                .adressContainer {
+                    width: 100%;
+                    font-size: 100%;
+                    padding: 1px;
+                    display: flex;
+                    #adress {
+                        width: 100%;
+                        padding: 1px;
+                    }
+                }
+                .ortPostnummer {
+                    width: 100%;
+                    padding: 1px;
+                    display: flex;
+                    #ort {
+                        width: 50%;
+                    }
+                    #postnummer {
+                        width: 50%;
+                        margin-left: 10px;
+                    }
+                }
+                .mailContainer {
+                    display: flex;
+                    justify-content: center;
+                    #mail {
+                        width: 100%;
+                    }
+                }
+                .formInput {
                     font-size: 85%;
                     width: 100%;
+                    margin-bottom: 10px;
+                    border: 0;
+                    padding: 0.5px;
                 }
-            }
-            .radio-container {
-                width: 50%;
-                input {
-                    float: right;
+                p {
+
+                }
+                .group {
+                    
+                    display: flex;
+                    justify-content: space-between;
+                    margin:10px 70px;
+                    box-sizing: border-box;
+                    input {
+                        cursor: pointer;
+                        border: 0;
+                        background-color: white;
+                        color: transparent;
+                        transform: translate(0, 25%);
+                        -webkit-appearance: none;
+                        border-radius: 50%;
+                        border:1px solid black;
+                        box-sizing:border-box ;
+                        width:20px;
+                        height:20px;
+                        transition: all 0.3s linear;
+                        margin: 0;
+                    }
+                    input:checked {
+                        outline: 0;
+                        border:5px solid rgb(255, 255, 255);
+                        background-color: rgb(111, 11, 11);
+                    }
                 }
                 #buyBtn {
-                    font-size: 15px;
-                    border-radius: 25%;
-                    background-color: rgb(161, 245, 161);
+                    color: white;
+                    background-color: rgb(111, 11, 11);
+                    border: 0px;
+                    font-size: 1.5em;
+                    width: 60%;
+                    margin:10px ;
+                    cursor: pointer;
+                    border-radius: 6px;
+
                 }
             }
         }
-            ul {
-                li {
-                    display: inline-block;
-                    .facebook-icon {
-                        color: #3b5998
-                    }
-                    .instagram-icon {
-                        color: rgb(247, 108, 28);
-                    }
-                    .twitter-icon {
-                        color: #1da1f2;
-                    }
-                }
-            }
+           
     }
 }

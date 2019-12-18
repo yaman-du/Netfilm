@@ -93,6 +93,16 @@ $(document).ready(function() {
         } 
     });
 
+    $(document).mouseup(function (e) { 
+        if ($(e.target).closest("#cart-container").length 
+                    === 0) { 
+            $("#cart-container").css("right", "-1000px"); 
+        }
+        else {
+            $("#cart-container").css("right", "-50px");
+        } 
+    });
+
     $("#remove-all").on("click", function() {
         $('.cart-content').remove();
         localStorage.clear();

@@ -1,26 +1,39 @@
 $(document).ready(function() {
     updateInfo();
+
+    //Validering för radio knappar i formuläret
+    $('#form').submit(function() {
+        if ($('input:radio', this).is(':checked')) {
+            // everything's fine...
+        } else {
+            alert('Du måste välja ett betalsätt.');
+            return false;
+        }
+    });
+
 });
 
     function updateInfo() {
         $('.product-container').remove();
         totalprice = 0;
 
-        for ( var i = 0; i < localStorage.length; i++ ) {
-            let productdata = localStorage.getItem(localStorage.key(i));
-            productdata = JSON.parse(productdata);
-            console.log("Hej");
-            console.log(productdata[0]);
+        for (var i = 0; i < localStorage.length; i++){
+            let cartitem = localStorage.getItem(localStorage.key(i));
+            cartitem = JSON.parse(cartitem);
+    
+            let productdata = cartitem[1];
+
+            console.log(productdata);
             let div = $('<div>');
             div.addClass("product-container")
                 .appendTo("#products");
             
             let img = $('<img/>');
-            img.attr("src", "http://image.tmdb.org/t/p/w300/" + productdata[1].imgurl)
+            img.attr("src", "http://image.tmdb.org/t/p/w300/" + productdata.imgurl)
             .appendTo(div);
     
             let movieTitle = $('<h4>');
-            movieTitle.text(productdata[1].title);
+            movieTitle.text(productdata.title);
             movieTitle.appendTo(div);
     
     
@@ -34,18 +47,18 @@ $(document).ready(function() {
             minus.appendTo(addRemove);
 
             minus.click(function() {
-                productdata[0]--;
-                if ( productdata[0] <= 0 ) {
-                    localStorage.removeItem(productdata[1].title);
+                cartitem[0]--;
+                if ( cartitem[0] <= 0 ) {
+                    localStorage.removeItem(productdata.title);
                 }
                 else {
-                    localStorage.setItem(productdata[1].title, JSON.stringify(productdata));
+                    localStorage.setItem(productdata.title, JSON.stringify(cartitem));
                 }
                 updateInfo();
             });
     
             let antal = $('<p>');
-            antal.html(productdata[0]);
+            antal.html(cartitem[0]);
             antal.addClass("antalFilmer");
             antal.appendTo(addRemove);
     
@@ -56,24 +69,26 @@ $(document).ready(function() {
             plus.appendTo(addRemove);
 
             plus.click(function() {
-                productdata[0]++;
-                localStorage.setItem(productdata[1].title, JSON.stringify(productdata));
+                cartitem[0]++;
+                console.log(cartitem[0]);
+                localStorage.setItem(productdata.title, JSON.stringify(cartitem));
                 updateInfo();
             });
 
             let kryss = $('<div>');
             kryss.html("&times")
                 .appendTo(div)
+                .addClass("x")
             .click(function() {
-                localStorage.removeItem(productdata[1].title);
+                localStorage.removeItem(productdata.title);
                 updateInfo();
             });
     
             let moviePrice = $('<p>');
-            moviePrice.text("Pris: " + productdata[1].price + "kr.");
+            moviePrice.text("Pris: " + productdata.price + "kr.");
             moviePrice.appendTo(div);
 
-            totalprice += productdata[1].price*productdata[0];
+            totalprice += productdata.price*cartitem[0];
         }
         $('#totalPrice').html("Totalt pris: " + totalprice + " kr.");
         console.log(totalprice);

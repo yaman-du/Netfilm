@@ -1,7 +1,7 @@
 $(document).ready(function() {
     
-    let actionlist = [ "tt7975244", "tt0110413", "tt0060196", "tt0468569", "tt5463162", "tt1074638", "tt0090605", "tt0172495"];
-    
+    //let actionlist = ["tt7349950", "tt6857112", "tt0054215", "tt0081505", "tt1588173", "tt0103873" ];
+    let actionlist = ["tt8623904", "tt0109830", "tt1588173", "tt0120338", "tt1099212", "tt1517451"];
     let Product = function(t,u,y,v,d,a) {
         this.title = t;
         this.imgurl = u;
@@ -319,8 +319,8 @@ function addtocart( product, amount ) {
 
 function videoapi( productlist ) {
 
-    let actionlist = ["tt7975244", "tt0110413", "tt0060196", "tt0468569", "tt5463162", "tt1074638", "tt0090605", "tt0172495" ];
-
+    let actionlist = ["tt8623904", "tt0109830", "tt1588173", "tt0120338", "tt1099212", "tt1517451"];
+    
     for ( let i = 0; i < productlist.length; i++){
         let b = $.ajax("https://api.themoviedb.org/3/movie/"+actionlist[i] +"/videos?api_key=990c8bcf3ed6fe9927c44ba174b1574d&language=en-US", {
             method:'GET',
@@ -356,7 +356,7 @@ function createElements( productlist ) {
                         let o = event.currentTarget.children[0];
                         console.log(o.height + " " + o.width);
                         //o.setAttribute("transform", "perspective(1000px) scaleZ(1) rotateX(" + x*0.5 + "deg) rotateY("+ y*0.5 + "deg)");
-                        o.setAttribute("style", "transform: perspective(1000px) scaleZ(1.5) rotateX(" + -(y-(o.height/2))*0.05 + "deg) rotateY("+ (x-(o.width/2))*0.05 + "deg)");
+                        o.setAttribute("style", "transform: perspective(1000px) scaleZ(1) rotateX(" + -(y-(o.height/2))*0.05 + "deg) rotateY("+ (x-(o.width/2))*0.05 + "deg)");
                     })
                     .on("mouseout", function(event) {
                         let o = event.currentTarget.children[0];
