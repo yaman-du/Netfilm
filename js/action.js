@@ -197,6 +197,14 @@ $(document).ready(function() {
         createElements(productlist);
     });
 
+    $("#tothetop").click(function() {
+
+    
+        $(window).scrollTop(0);
+        
+        
+    });
+
 }); 
 
 function updatecart() {
