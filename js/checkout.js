@@ -4,7 +4,7 @@ $(document).ready(function() {
     //Validering för radio knappar i formuläret
     $('#form').submit(function() {
         if ($('input:radio', this).is(':checked')) {
-            // everything's fine...
+          
         } else {
             alert('Du måste välja ett betalsätt.');
             return false;
